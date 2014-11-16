@@ -9,9 +9,10 @@ script:
   
 #  - git remote rm origin
 #  - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
-  - git clone https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git release
+  - git clone https://${GH_TOKEN}@github.com/RhiobeT/testsTravis.git release
   - git config --global user.email ${GIT_EMAIL}
   - git config --global user.name ${GIT_NAME}
+  - git config --global push.default simple
   - cp --target-directory=release file.test
   - cd release
   - git add file.test
