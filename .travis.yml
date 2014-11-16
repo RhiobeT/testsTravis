@@ -3,7 +3,7 @@ jdk:
   - oraclejdk7
 env:
   global:
-    - secure: "L0Y5kZYN73r+afe0DY6A7l0LeKSBgF/nCesFdMmypkwZtFJdChxPyNim0X4xTXksdvKcUzqDAHqrAb+0q2dkRhy99PHfcjgra73w65SjkiUOwVUlGKD6O9lgjBsq9bkex8mgRk2JJPNG4I/3YkN+sIykthpTPvSILKBWMbTYjXI="
+    - secure: "bqhaJSGeBvRhIYo7svJo0MFaasuRgQHGru6Z1JB0RzRvhwzq/v+tOy6s3PNkgpA/dWfMAAL7rByVF6zze4Mu4S4AHaF2FpZHCdvOhOdZSYle513NPvqcl6LGpZdjNxgedhD2OPnKIyOwIhDnI0YoBwdhK4leGZVRVxN8Nq4/cr0="
 script:
   - touch file.test
   
@@ -17,7 +17,7 @@ script:
   
   - git config user.email ${GIT_EMAIL}
   - git config user.name ${GIT_NAME}
- # - git config --global push.default simple
+  - git config push.default simple
   
   - git add file.test
   - git commit -m "[skip ci] Commit from Travis-CI"
