@@ -7,16 +7,17 @@ env:
 script:
   - touch file.test
   
-  - git config --global user.email ${GIT_EMAIL}
-  - git config --global user.name ${GIT_NAME}
-  - git config --global push.default simple
   - git clone https://github.com/RhiobeT/testsTravis.git
   
   - cp --target-directory=testsTravis file.test
   
-  - cd testsTravis
+  - cd testsTravis  
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+  
+  - git config user.email ${GIT_EMAIL}
+  - git config user.name ${GIT_NAME}
+ # - git config --global push.default simple
   
   - git add file.test
   - git commit -m "[skip ci] Commit from Travis-CI"
