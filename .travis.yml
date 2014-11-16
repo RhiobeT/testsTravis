@@ -14,4 +14,4 @@ script:
   - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
   - git add file.test
   - git commit -m "[skip ci] Commit from Travis-CI"
-  - git push -fq origin
+  - git push origin master
