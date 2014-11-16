@@ -9,8 +9,11 @@ script:
   
   - git config --global user.email ${GIT_EMAIL}
   - git config --global user.name ${GIT_NAME}
-  - git remote rm origin
-  - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
+#  - git remote rm origin
+#  - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
+  - git clone https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git release
+  - cp --target-directory=release file.test
+  - cd release
   - git add file.test
   - git commit -m "[skip ci] Commit from Travis-CI"
-  - git push origin master
+  - git push
