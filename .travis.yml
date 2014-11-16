@@ -12,6 +12,9 @@ script:
   - git config --global push.default simple
   - git clone https://github.com/RhiobeT/testsTravis.git
   
+  - cp --target-directory=testsTravis file.test
+  
+  - cd testsTravis
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
   
