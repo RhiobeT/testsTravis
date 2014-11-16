@@ -7,14 +7,11 @@ env:
 script:
   - touch file.test
   
-  - git clone https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git release
   - git config --global user.email ${GIT_EMAIL}
   - git config --global user.name ${GIT_NAME}
   - git config --global push.default simple
   - git remote rm origin
   - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
-  - cp --target-directory=release file.test
-  - cd release
   - git add file.test
   - git commit -m "[skip ci] Commit from Travis-CI"
-  - git push -fq origin release
+  - git push -fq origin
