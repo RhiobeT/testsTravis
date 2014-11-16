@@ -1,5 +1,16 @@
 language: java
 jdk:
   - oraclejdk7
+env:
+  global:
+    - secure: "L0Y5kZYN73r+afe0DY6A7l0LeKSBgF/nCesFdMmypkwZtFJdChxPyNim0X4xTXksdvKcUzqDAHqrAb+0q2dkRhy99PHfcjgra73w65SjkiUOwVUlGKD6O9lgjBsq9bkex8mgRk2JJPNG4I/3YkN+sIykthpTPvSILKBWMbTYjXI="
 script:
   - touch file.test
+  
+  - git config --global user.email ${GIT_EMAIL}
+  - git config --global user.name ${GIT_NAME}
+  - git remote rm origin
+  - git remote add origin https://${GIT_NAME}:${GH_TOKEN}@github.com/RhiobeT/testsTravis.git
+  - git add file.test
+  - git commit -m "[skip ci] Commit from Travis-CI"
+  - git push origin master
