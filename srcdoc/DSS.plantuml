@@ -1,0 +1,47 @@
+@startuml
+
+title Scénario de génération d'une documentation
+
+actor ":Développeur" as D
+
+participant ":Travis-CI" as T
+participant ":Machine Virtuelle" as V
+
+actor ":Superviseur" as S
+
+D->T: commiterSourcesDocumentation
+
+T->V: créerMachineVirtuelle
+activate V
+
+V->V: effectuerDesVérifications
+
+alt succès
+
+	V->V: générerDocumentationMediaWiki
+	V->V: validerDocumentationGénérée
+	
+	alt succès
+	
+		V->S: envoyerDocumentationGénérée
+		V-->T: retournerSuccès
+		destroy V
+		T-->D: retournerSuccès
+	
+	else échec
+	
+		V-->T: retournerErreur
+		destroy V
+		T-->D: retournerErreur
+	
+	end
+	
+else échec
+
+	V-->T: retournerErreur
+	destroy V
+	T-->D: retournerErreur
+	
+end
+
+@enduml

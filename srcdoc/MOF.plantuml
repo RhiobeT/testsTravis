@@ -1,0 +1,15 @@
+@startuml
+
+(*) --> "Stable"
+
+-->[Commit] "Vérifications"
+-->[Échec] "Stable"
+"Vérifications" -->[Lancement] "Génération"
+-->[Test] "Validation"
+-->[Déploiement] "Mise en ligne"
+"Validation" --> [Échec] "Stable"
+
+
+"Mise en ligne" --> (*)
+
+@enduml

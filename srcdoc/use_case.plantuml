@@ -1,0 +1,29 @@
+'-----------------------------------
+' PTUT 2014-2015
+'-----------------------------------
+@startuml
+'-----------------------------------
+
+Actor Développeur as codeur
+Actor Superviseur as JMB
+
+(Validation de la documentation générée) as (valider)
+(Commit des sources de la documentation Asciidoc) as (commiter)
+(Validation des sources Asciidoc) as (tester)
+(Génération de la documentation MediaWiki) as (generer)
+(Récupération de la documentation générée) as (recuperer)
+(Mise en ligne de la documentation générée) as (deployer)
+
+codeur -> commiter
+generer ..> tester: <<include>>
+generer ..> commiter: <<extend>>
+recuperer ..> valider: <<include>>
+recuperer ..> generer: <<extend>>
+recuperer -> JMB
+JMB -> deployer
+
+'-----------------------------------
+@enduml
+'-----------------------------------
+
+

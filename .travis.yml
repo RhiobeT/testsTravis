@@ -1,24 +1,107 @@
 language: java
+
 jdk:
   - oraclejdk7
+
 env:
   global:
-    - secure: "bqhaJSGeBvRhIYo7svJo0MFaasuRgQHGru6Z1JB0RzRvhwzq/v+tOy6s3PNkgpA/dWfMAAL7rByVF6zze4Mu4S4AHaF2FpZHCdvOhOdZSYle513NPvqcl6LGpZdjNxgedhD2OPnKIyOwIhDnI0YoBwdhK4leGZVRVxN8Nq4/cr0="
+    - secure: "AIKcjNo07qRSdyB0bI144P3OL5Okmhh1BB0LUeN3mt4iXV3bdVQkOLod4vy/N2ho2vfwUO61xjrzUw6OZx0eeptECMtCVPWI2PRm+BnjAz1rQzIKq8Jo/Haffiv3EdZV9Q41mWlU3TVPPfS2p8RkUFkqFm1FXiNadIr4HKKiRPI="
+
+install:
+# update ubuntu repositories
+  - sudo apt-get update
+ 
+# install the needed softwares
+  - gem install asciidoctor
+  - sudo apt-get install pandoc
+  - sudo apt-get install graphviz --fix-missing
+
 script:
-  - touch file.test
+# save current directory
+  - baseDir=`pwd`
+  - export baseDir
+
   
-  - git clone https://github.com/RhiobeT/testsTravis.git
   
-  - cp --target-directory=testsTravis file.test
+# configure the variables for Github
+  - git config --global user.email ${GIT_EMAIL}
+  - git config --global user.name ${GIT_NAME}
+  - git config --global push.default simple
   
-  - cd testsTravis  
+# move inside the directory containing the document to generate
+  - cd $baseDir/srcdoc
+  
+# generate plantUML diagrams (if any)
+  - chmod 777 $baseDir/travisScripts/plantUML.sh
+  - $baseDir/travisScripts/plantUML.sh
+    
+# generate the html version of the document
+  - asciidoctor -a toc=macro -a data-uri -a stylesheet=asciidoctor.css -a stylesdir=./stylesheet -o _result.html _source.adoc
+
+# generate the mediawiki version of the document
+  - asciidoctor -a stylesheet=asciidoctor.css -a numbered! -a stylesdir=./stylesheet -o _pre-result _source.adoc
+  - pandoc -f html -t mediawiki --toc -o _result.mediawiki _pre-result
+  - cd $baseDir
+  
+
+
+# compile the tests
+  - cd testsdoc
+  - javac -d $baseDir/srcdoc Tests.java
+  - cd $baseDir
+  
+# launch the tests
+  - cd srcdoc
+  - java Tests
+  - cd $baseDir
+
+
+  
+# clone the "doc_release" branch in directory "_doc_release"
+  - git clone -q https://${GH_TOKEN}:@github.com/IUT-Blagnac/EICGD.git --branch doc_release --single-branch _doc_release
+
+# move inside the _doc_release directory
+  - cd $baseDir/_doc_release
+
+# set GitHub credentials
   - git config credential.helper "store --file=.git/credentials"
-  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-  
-  - git config user.email ${GIT_EMAIL}
-  - git config user.name ${GIT_NAME}
-  - git config push.default simple
-  
-  - git add file.test
+  - echo https://${GH_TOKEN}:@github.com > .git/credentials
+
+
+
+after_success:
+# copy files to commit
+  - mkdir -p doc_release
+  - cd doc_release
+  - rm -R *
+  - cd ..
+  - cp --target-directory=doc_release -R $baseDir/srcdoc/images
+  - cp --target-directory=doc_release -R $baseDir/srcdoc/stylesheet
+  - cp --target-directory=doc_release $baseDir/srcdoc/*.html
+  - cp --target-directory=doc_release $baseDir/srcdoc/*.mediawiki
+
+# add files for commit
+  - git add doc_release
+
+
+
+after_failure:
+# copy files to commit
+  - mkdir -p doc_failed
+  - cd doc_failed
+  - rm -R *
+  - cd ..
+  - cp --target-directory=doc_failed -R $baseDir/srcdoc/images
+  - cp --target-directory=doc_failed -R $baseDir/srcdoc/stylesheet
+  - cp --target-directory=doc_failed $baseDir/srcdoc/*.html
+  - cp --target-directory=doc_failed $baseDir/srcdoc/*.mediawiki
+
+# add files for commit
+  - git add doc_failed
+
+
+
+after_script:
+# commit and push on Github
   - git commit -m "[skip ci] Commit from Travis-CI"
-  - git push
+  - git push -q
