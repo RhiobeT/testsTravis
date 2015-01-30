@@ -58,7 +58,7 @@ script:
 
   
 # clone the "doc_release" branch in directory "_doc_release"
-  - git clone -q https://${GH_TOKEN}:@github.com/IUT-Blagnac/EICGD.git --branch doc_release --single-branch _doc_release
+  - git clone -q https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git --branch doc_release --single-branch _doc_release
 
 # move inside the _doc_release directory
   - cd $baseDir/_doc_release
