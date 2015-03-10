@@ -2,7 +2,7 @@
 sourceDir="$baseDir/srcdoc"
 imagesDir="$sourceDir/images"
 sourceName="_source.adoc"
-stylesheetDir="$sourceDir/stylesheet"
+stylesheetDir="./stylesheet"
 stylesheetName="asciidoctor.css"
 resultHtmlName="_result.html"
 preResultName="_pre-result.html"
