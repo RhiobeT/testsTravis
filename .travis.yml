@@ -72,38 +72,31 @@ script:
 
 
 after_success:
-# copy files to commit
-  - mkdir -p $successDir
-  - cd $successDir
-  - rm -R *
-  - cd ..
-  - cp --target-directory=$successDir -R $baseDir/srcdoc/images
-  - cp --target-directory=$successDir -R $baseDir/srcdoc/stylesheet
-  - cp --target-directory=$successDir $baseDir/srcdoc/*.html
-  - cp --target-directory=$successDir $baseDir/srcdoc/*.mediawiki
-
-# add files for commit
-  - git add $successDir
+# the commit will happen in the success directory
+  - commitDir=$successDir
 
 
 
 after_failure:
-# copy files to commit
-  - mkdir -p $failureDir
-  - cd $failureDir
-  - rm -R *
-  - cd ..
-  - cp --target-directory=$failureDir -R $baseDir/srcdoc/images
-  - cp --target-directory=$failureDir -R $baseDir/srcdoc/stylesheet
-  - cp --target-directory=$failureDir $baseDir/srcdoc/*.html
-  - cp --target-directory=$failureDir $baseDir/srcdoc/*.mediawiki
-
-# add files for commit
-  - git add $failureDir
+# the commit will happen in the failure directory
+  - commitDir=$failureDir
 
 
 
 after_script:
+# copy files to commit
+  - mkdir -p $commitDir
+  - cd $commitDir
+  - rm -R *
+  - cd ..
+  - cp --target-directory=$commitDir -R $baseDir/srcdoc/images
+  - cp --target-directory=$commitDir -R $baseDir/srcdoc/stylesheet
+  - cp --target-directory=$commitDir $baseDir/srcdoc/*.html
+  - cp --target-directory=$commitDir $baseDir/srcdoc/*.mediawiki
+
+# add files for commit
+  - git add $commitDir
+
 # commit and push on Github
   - git commit -m "[skip ci] Commit from Travis-CI"
   - git push -q
