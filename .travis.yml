@@ -24,6 +24,7 @@ script:
 
 
 # include configuration file
+  - chmod 777 $baseDir/travisConfig/config.sh
   - $baseDir/travisConfig/config.sh
 
 
