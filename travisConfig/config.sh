@@ -59,3 +59,16 @@ branch="doc_release"
 cloneDir="$baseDir/_doc_release"
 successDir="$baseDir/doc_release"
 failureDir="$baseDir/doc_failed"
+
+toCommit=(
+	"-R $imagesDir"
+	"-R $stylesheetDir"
+	"$sourceDir/*.html"
+	"$sourceDir/*.mediawiki"
+)
+
+function copyToCommit {
+	for element in $toCommit ; do
+		cp --target-directory=$commitDir $element
+	done
+}
