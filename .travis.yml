@@ -35,7 +35,7 @@ script:
   - git config --global push.default simple
   
 # move inside the directory containing the document to generate
-  - cd $srcDocDir
+  - cd $sourceDir
   
 # generate plantUML diagrams (if any)
   - chmod 777 $baseDir/travisScripts/plantUML.sh
