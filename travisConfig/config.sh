@@ -1,7 +1,7 @@
 # documentation generation
 sourceDir="$baseDir/srcdoc"
 sourceName="_source.adoc"
-stylesheetDir="$srcDocDir/stylesheet"
+stylesheetDir="$sourceDir/stylesheet"
 stylesheetName="asciidoctor.css"
 resultName="_result.html"
 htmlGenerationCommand=$(asciidoctor -a toc=macro -a data-uri -a stylesheet=$stylesheetName -a stylesdir=$stylesheetDir -o $resultName $sourceName)
