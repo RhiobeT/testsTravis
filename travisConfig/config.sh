@@ -69,6 +69,6 @@ toCommit=(
 
 function copyToCommit {
 	for element in $toCommit ; do
-		cp --target-directory=$commitDir $element
+		eval "cp --target-directory=$commitDir $element"
 	done
 }
