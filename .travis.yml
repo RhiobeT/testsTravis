@@ -86,14 +86,8 @@ after_failure:
 after_script:
 # copy files to commit
   - mkdir -p $commitDir
-  - cd $commitDir
-  - rm -R ./*
-  - cd $cloneDir
+  - rm -R $commitDir/*
   - copyToCommit
-#  - cp --target-directory=$commitDir -R $baseDir/srcdoc/images
-#  - cp --target-directory=$commitDir -R $baseDir/srcdoc/stylesheet
-#  - cp --target-directory=$commitDir $baseDir/srcdoc/*.html
-#  - cp --target-directory=$commitDir $baseDir/srcdoc/*.mediawiki
 
 # add files for commit
   - git add $commitDir
