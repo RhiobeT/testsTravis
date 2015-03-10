@@ -21,7 +21,12 @@ script:
   - baseDir=`pwd`
   - export baseDir
 
-  
+
+
+# include configuration file
+  - $baseDir/travisConfig/config.sh
+
+
   
 # configure the variables for Github
   - git config --global user.email ${GIT_EMAIL}

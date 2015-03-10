@@ -7,7 +7,7 @@ include::asciidoc.conf[]
 L'équipe responsable du projet <pierre.jeanjean@etu.univ-tlse2.fr>
 v1.3.1, {localdate}
 
-= Documentation utilisateur généré durant la soutenance
+= Documentation utilisateur
 
 image::logo-DPT-Info.png[]
 
