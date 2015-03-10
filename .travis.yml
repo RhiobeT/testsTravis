@@ -87,7 +87,7 @@ after_script:
 # copy files to commit
   - mkdir -p $commitDir
   - cd $commitDir
-  - rm -R *
+  - rm -R ./*
   - cd $cloneDir
   - copyToCommit
 #  - cp --target-directory=$commitDir -R $baseDir/srcdoc/images
