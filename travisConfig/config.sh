@@ -42,7 +42,7 @@ testsClassName="Test"
 testsDir="$baseDir/testsdoc"
 
 function compilationTests {
-	javac -d $sourceDir $testsSourceName
+	javac -d $sourceDir $testsDir/$testsSourceName
 }
 
 function lancementTests {
