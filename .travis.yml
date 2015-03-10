@@ -35,14 +35,14 @@ script:
   - git config --global push.default simple
   
 # move inside the directory containing the document to generate
-  - cd $baseDir/srcdoc
+  - cd $srcDocDir
   
 # generate plantUML diagrams (if any)
   - chmod 777 $baseDir/travisScripts/plantUML.sh
   - $baseDir/travisScripts/plantUML.sh
     
 # generate the html version of the document
-  - asciidoctor -a toc=macro -a data-uri -a stylesheet=asciidoctor.css -a stylesdir=./stylesheet -o _result.html _source.adoc
+  - echo $(eval $htmlGenerationCommand)
 
 # generate the mediawiki version of the document
   - asciidoctor -a stylesheet=asciidoctor.css -a numbered! -a stylesdir=./stylesheet -o _pre-result _source.adoc
