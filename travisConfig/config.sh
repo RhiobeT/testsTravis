@@ -57,8 +57,8 @@ function lancementTests {
 repository="https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git"
 branch="doc_release"
 cloneDir="$baseDir/_doc_release"
-successDir="$baseDir/doc_release"
-failureDir="$baseDir/doc_failed"
+successDir="$cloneDir/doc_release"
+failureDir="$cloneDir/doc_failed"
 
 toCommit=(
 	"-R $imagesDir"
