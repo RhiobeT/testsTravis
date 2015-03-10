@@ -8,7 +8,7 @@ preResultName="_pre-result.html"
 resultMediawikiName="_result.mediawiki"
 
 function htmlGenerationCommand {
-	asciidoctor -a toc=macro,data-uri,stylesheet=$stylesheetName,stylesdir=$stylesheetDir -o $resultName $sourceName
+	asciidoctor -a toc=macro,data-uri,stylesheet=$stylesheetName,stylesdir=$stylesheetDir -o $resultHtmlName $sourceName
 }
 
 function mediawikiGenerationCommand1 {
