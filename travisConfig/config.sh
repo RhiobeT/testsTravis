@@ -69,6 +69,6 @@ toCommit=(
 
 function copyToCommit {
 	for element in "${toCommit[@]}" ; do
-		echo "--cp --target-directory=$commitDir $element"
+		cp --target-directory=$commitDir $element
 	done
 }
