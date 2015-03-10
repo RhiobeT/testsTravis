@@ -36,6 +36,7 @@ script:
   
 # move inside the directory containing the document to generate
   - cd $sourceDir
+  - ls -l
   
 # generate plantUML diagrams (if any)
   - chmod 777 $baseDir/travisScripts/plantUML.sh
