@@ -37,8 +37,8 @@ function plantumlCommand {
 
 
 # tests
-testsSourceName="Test.java"
-testsClassName="Test"
+testsSourceName="Tests.java"
+testsClassName="Tests"
 testsDir="$baseDir/testsdoc"
 
 function compilationTests {
