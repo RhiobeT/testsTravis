@@ -19,13 +19,12 @@ install:
 script:
 # save current directory
   - baseDir=$(pwd)
-  - export baseDir
 
 
 
 # include configuration file
   - chmod 777 $baseDir/travisConfig/config.sh
-  - $baseDir/travisConfig/config.sh
+  - source $baseDir/travisConfig/config.sh
 
 
   
@@ -35,14 +34,12 @@ script:
   - git config --global push.default simple
   
 # move inside the directory containing the document to generate
-  - pwd
   - echo $sourceDir
   - cd $sourceDir
-  - pwd
   
 # generate plantUML diagrams (if any)
   - chmod 777 $baseDir/travisScripts/plantUML.sh
-  - $baseDir/travisScripts/plantUML.sh
+  - source $baseDir/travisScripts/plantUML.sh
     
 # generate the html version of the document
   - echo $(eval $htmlGenerationCommand)
