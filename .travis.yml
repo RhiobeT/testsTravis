@@ -34,7 +34,6 @@ script:
   - git config --global push.default simple
   
 # move inside the directory containing the document to generate
-  - echo $sourceDir
   - cd $sourceDir
   
 # generate plantUML diagrams (if any)
