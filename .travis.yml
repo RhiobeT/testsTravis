@@ -46,27 +46,24 @@ script:
 # generate the mediawiki version of the document
   - mediawikiGenerationCommand1
   - mediawikiGenerationCommand2
-  - cd $baseDir
   
 
 
 # compile the tests
-  - cd testsdoc
-  - javac -d $baseDir/srcdoc Tests.java
-  - cd $baseDir
+  - cd $testsDir
+  - compilationTests
   
 # launch the tests
-  - cd srcdoc
-  - java Tests
-  - cd $baseDir
+  - cd $sourceDir
+  - lancementTests
 
 
   
 # clone the "doc_release" branch in directory "_doc_release"
-  - git clone -q https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git --branch doc_release --single-branch _doc_release
+  - git clone -q $repository --branch $branch --single-branch $cloneDir
 
 # move inside the _doc_release directory
-  - cd $baseDir/_doc_release
+  - cd $cloneDir
 
 # set GitHub credentials
   - git config credential.helper "store --file=.git/credentials"
@@ -76,33 +73,33 @@ script:
 
 after_success:
 # copy files to commit
-  - mkdir -p doc_release
-  - cd doc_release
+  - mkdir -p $successDir
+  - cd $successDir
   - rm -R *
   - cd ..
-  - cp --target-directory=doc_release -R $baseDir/srcdoc/images
-  - cp --target-directory=doc_release -R $baseDir/srcdoc/stylesheet
-  - cp --target-directory=doc_release $baseDir/srcdoc/*.html
-  - cp --target-directory=doc_release $baseDir/srcdoc/*.mediawiki
+  - cp --target-directory=$successDir -R $baseDir/srcdoc/images
+  - cp --target-directory=$successDir -R $baseDir/srcdoc/stylesheet
+  - cp --target-directory=$successDir $baseDir/srcdoc/*.html
+  - cp --target-directory=$successDir $baseDir/srcdoc/*.mediawiki
 
 # add files for commit
-  - git add doc_release
+  - git add $successDir
 
 
 
 after_failure:
 # copy files to commit
-  - mkdir -p doc_failed
-  - cd doc_failed
+  - mkdir -p $failureDir
+  - cd $failureDir
   - rm -R *
   - cd ..
-  - cp --target-directory=doc_failed -R $baseDir/srcdoc/images
-  - cp --target-directory=doc_failed -R $baseDir/srcdoc/stylesheet
-  - cp --target-directory=doc_failed $baseDir/srcdoc/*.html
-  - cp --target-directory=doc_failed $baseDir/srcdoc/*.mediawiki
+  - cp --target-directory=$failureDir -R $baseDir/srcdoc/images
+  - cp --target-directory=$failureDir -R $baseDir/srcdoc/stylesheet
+  - cp --target-directory=$failureDir $baseDir/srcdoc/*.html
+  - cp --target-directory=$failureDir $baseDir/srcdoc/*.mediawiki
 
 # add files for commit
-  - git add doc_failed
+  - git add $failureDir
 
 
 
