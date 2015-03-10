@@ -110,5 +110,5 @@ Une fois le push effectué, vous pourrez suivre l’avancement de la génératio
 Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:images/icons/88x31.png|Licence Creative Commons]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 1.3.1<br />
- Last updated 2015-03-10 12:42:44 UTC
+ Last updated 2015-03-10 13:38:49 UTC
 
