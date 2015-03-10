@@ -41,11 +41,11 @@ script:
   - source $baseDir/travisScripts/plantUML.sh
     
 # generate the html version of the document
-  - echo $(eval $htmlGenerationCommand)
+  - htmlGenerationCommand
 
 # generate the mediawiki version of the document
-  - asciidoctor -a stylesheet=asciidoctor.css -a numbered! -a stylesdir=./stylesheet -o _pre-result _source.adoc
-  - pandoc -f html -t mediawiki --toc -o _result.mediawiki _pre-result
+  - mediawikiGenerationCommand1
+  - mediawikiGenerationCommand2
   - cd $baseDir
   
 
