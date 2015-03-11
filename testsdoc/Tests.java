@@ -161,7 +161,7 @@ public class Tests {
 
 			if (toTest.substring(0, 29).equals("<link rel=\"stylesheet\" href=\"")) {
 				try {
-					fichier = toTest.substring(i + 29, toTest.length() - 2);
+					fichier = toTest.substring(29, toTest.length() - 2);
 				}
 				catch (IndexOutOfBoundsException ignored) {}
 			}
