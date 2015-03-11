@@ -1,4 +1,4 @@
-= E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation - Guide d’installation =
+= E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation - Manuel utilisateur =
 
 L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;<br />
  version 2.0, 2015-03-11
@@ -9,97 +9,32 @@ L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;<br />
 
 [http://www.eclipse.org/papyrus/ Papyrus] est un plugin [http://www.eclipse.org eclipse] permettant la génération et l’édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation UML et ses dérivés, tels que SysML et MARTE. Actuellement l’équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par [https://www.mediawiki.org MediaWiki], et la teste manuellement. Or cette syntaxe n’est pas une des plus pratiques à utiliser : par exemple, elle n’offre pas la possibilité d’utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser. De plus, l’absence de tests automatiques rend difficile la détection de liens morts ainsi que l’absence de fichiers, sources ou images, dont l’importation est nécessaire pour l’affichage correct de la documentation.
 
-== Préparation de l’environnement ==
+== Génération de la documentation ==
 
-Pour installer la solution sur un projet GitHub, il faut tout d’abord préparer le projet à utiliser le service d’intégration continue Travis-CI :
+Pour générer une documentation, elle doit être nommée &quot;_source.adoc&quot; et être placée dans le répertoire &quot;srcdoc&quot; de la racine
 
-La première étape consiste à activer le service Travis-CI sur GitHub. Pour cela, rendez-vous sur la page de votre projet et cliquez sur &quot;Settings&quot;
+[[Image:images/util1.png|frame|none|alt=util1]]
 
-[[Image:images/prep1.png|frame|none|alt=prep1]]
+Si vous avez besoin de générer des graphiques avec plantUML, placez également dans ce répertoire les fichiers sources au format .plantUML Le résultat de leur génération sera placé, par défaut, dans le répertoire &quot;images&quot;, ce que vous pouvez changer en modifiant le fichier travisScripts/plantUML.sh
 
-Allez ensuite dans la section &quot;Webhooks &amp; Services&quot;
+[[Image:images/util2.png|frame|none|alt=util2]]
 
-[[Image:images/prep2.png|frame|none|alt=prep2]]
+Le document sera généré en html et en mediawiki Vous pouvez également modifier les commandes effectuant la génération dans le fichier &quot;.travis.yml&quot;, entre les lignes 38 et 43
 
-Ajoutez le service &quot;Travis-CI&quot;
+[[Image:images/util3.png|frame|none|alt=util3]]
 
-[[Image:images/prep3.png|frame|none|alt=prep3]]
+== Récupération de la documentation ==
 
-Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet
+Une fois le push effectué, vous pourrez suivre l’avancement de la génération sur le site Travis-CI
 
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">[[Image:icons/important.png|Important]]</td>
-<td align="left">Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s’abonner au service</td>
-</tr>
-</tbody>
-</table>
+== Paramétrages ==
 
-[[Image:images/prep4.png|frame|none|alt=prep4]]
+La plupart des répertoires, noms et commandes utilisées peuvent être modifiées directement dans le fichier travisConfig/config.sh. Ce fichier est découpé en cinq catégories : * essentiel : contient l’adresse du repository, seule configuration devant être absolument modifiée * documentation generation : contient les accès à tous fichiers nécessaires à la documentation (source, images, css), ainsi que des fonctions lançant les générations * plantUML generation : contient le répertoire d’installation de plantUML, les répertoires &quot;source&quot; et &quot;output&quot; ainsi que la commande nécessaires à la conversion de fichiers .plantuml * tests : contient l’accès aux fichiers de tests et les commandes pour les compiler et les exécuter * push to GitHub : contient le nom de la branche où doit être fait le push, le répertoire où elle doit être clonée, les répertoires où stocker les fichiers générés en cas de succès ou d’échec, ainsi qu’une liste des fichiers et répertoires à ajouter au commit (précédés de &quot;-R&quot; si l’ajout doit être récursif)
 
-Une fois sur Travis-CI, connectez vous avec votre compte GitHub
-
-[[Image:images/prep5.png|frame|none|alt=prep5]]
-
-Autorisez ensuite l’application Travis CI
-
-[[Image:images/prep6.png|frame|none|alt=prep6]]
-
-Sur votre profil Travis CI, rendez-vous dans l’onglet &quot;Profile&quot; et notez votre Token
-
-[[Image:images/prep7.png|frame|none|alt=prep7]]
-
-Retournez ensuite sur la page de GitHub contenant les champs à remplir, et utilisez le token noté précédemment (inutile d’indiquer la champ Domain)
-
-[[Image:images/prep8.png|frame|none|alt=prep8]]
-
-Créez également une nouvelle branche &quot;doc_release&quot; pour votre projet
-
-[[Image:images/prep9.png|frame|none|alt=prep9]]
-
-== Déploiment de la solution ==
-
-Pour installer la solution sur votre projet, extrayez l’archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts) Rendez vous ensuite sur Travis-CI et activez l’intégration continue pour votre projet
-
-[[Image:images/dep1.png|frame|none|alt=dep1]]
-
-Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée Une fois fait, vous aurez besoin d’un environnement de développement Ruby fonctionnel sur votre machine Exécutez alors la commande &quot;gem install travis&quot;
-
-[[Image:images/dep2.png|frame|none|alt=dep2]]
-
-Retournez sur GitHub et allez dans le menu Settings
-
-[[Image:images/dep3.png|frame|none|alt=dep3]]
-
-Menu &quot;Applications&quot;, Cliquez sur &quot;Generate new token&quot;
-
-[[Image:images/dep4.png|frame|none|alt=dep4]]
-
-Cochez &quot;repo&quot; ou &quot;public_repo&quot; en fonction de la visibilité du projet, puis cliquez sur &quot;Generate token&quot;
-
-[[Image:images/dep5.png|frame|none|alt=dep5]]
-
-Notez bien votre token, car vous ne pourrez pas le récupérer par la suite
-
-[[Image:images/dep6.png|frame|none|alt=dep6]]
-
-Tapez la commande travis encrypt 'GIT_NAME=&quot;Nom d’utilisateur GitHub&quot; GIT_EMAIL=&quot;Adresse mail GitHub&quot; GH_TOKEN=&quot;Le token généré précédemment&quot;' -r PropriétaireProjet/NomProjet
-
-[[Image:images/dep7.png|frame|none|alt=dep7]]
-
-Notez ensuite la ligne résultat
-
-Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne &quot; - secure:…​&quot; par celle notée précédemment
-
-[[Image:images/dep8.png|frame|none|alt=dep8]]
-
-Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après &quot;essentiel&quot;) par l’adresse de votre projet
-
-[[Image:images/dep9.png|frame|none|alt=dep9]]
+Si vous souhaitez changer un comportement différent, vous aurez sans doûte à modifier le fichier &quot;.travis.yml&quot;, que des commentaires documentent de façon minimale
 
 Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:images/icons/88x31.png|Licence Creative Commons]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-11 02:19:12 UTC
+ Last updated 2015-03-11 02:35:59 UTC
 
