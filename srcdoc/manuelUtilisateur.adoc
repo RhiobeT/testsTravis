@@ -3,9 +3,9 @@ include::asciidoc.conf[]
 
 :toc-title: Sommaire
 
-= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation
+= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation - Manuel utilisateur
 L'équipe responsable du projet <pierre.jeanjean@etu.univ-tlse2.fr>
-v1.3.1, {localdate}
+v2.0, {localdate}
 
 = Documentation utilisateur
 
@@ -20,89 +20,7 @@ Actuellement l'équipe chargée de la réalisation de la documentation du plugin
 Or cette syntaxe n'est pas une des plus pratiques à utiliser : par exemple, elle n'offre pas la possibilité d'utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser.
 De plus, l'absence de tests automatiques rend difficile la détection de liens morts ainsi que l'absence de fichiers, sources ou images, dont l'importation est nécessaire pour l'affichage correct de la documentation.
 
-== Préparation de l'environnement
-
-Pour installer la solution sur un projet GitHub, il faut tout d'abord préparer le projet à utiliser le service d'intégration continue Travis-CI :
-
-La première étape consiste à activer le service Travis-CI sur GitHub.
-Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"
-
-image::prep1.png[]
-
-Allez ensuite dans la section "Webhooks & Services"
-
-image::prep2.png[]
-
-Ajoutez le service "Travis-CI"
-
-image::prep3.png[]
-
-Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de visibilité de votre projet
-
-image::prep4.png[]
-
-Une fois sur Travis-CI, connectez vous avec votre compte GitHub
-
-image::prep5.png[]
-
-Autorisez ensuite l'application Travis CI
-
-image::prep6.png[]
-
-Sur votre profil Travis CI, rendez-vous dans l'onglet "Profile" et notez votre Token
-
-image::prep7.png[]
-
-Retournez ensuite sur la page de GitHub contenant les champs à remplir, et utilisez le token noté précédemment (inutile d'indiquer la champ Domain) 
-
-image::prep8.png[]
-
-Créez également une nouvelle branche "doc_release" pour votre projet
-
-image::prep9.png[]
-
-== Déploiment de la solution
-
-Pour installer la solution sur votre projet, extrayez l'archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts)
-Rendez vous ensuite sur Travis-CI et activez l'intégration continue pour votre projet
-
-image::dep1.png[]
-
-Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée
-Une fois fait, vous aurez besoin d'un environnement de développement Ruby fonctionnel sur votre machine
-Exécutez alors la commande "gem install travis"
-
-image::dep2.png[]
-
-Retournez sur GitHub et 	allez dans le menu Settings
-
-image::dep3.png[]
-
-Menu "Applications", Cliquez sur "Generate new token"
-
-image::dep4.png[]
-
-Cochez "repo" ou "public_repo" en fonction de la visibilité du projet, puis cliquez sur "Generate token"
-
-image::dep5.png[]
-
-Notez bien votre token, car vous ne pourrez pas le récupérer par la suite
-
-image::dep6.png[]
-
-Tapez la commande travis encrypt 'GIT_NAME="Nom d'utilisateur GitHub" GIT_EMAIL="Adresse mail GitHub" GH_TOKEN="Le token généré précédemment"' -r PropriétaireProjet/NomProjet
-
-image::dep7.png[]
-
-Notez ensuite la ligne résultat
-
-Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne "    - secure:..." par celle notée précédemment
-
-image::dep8.png[]
-
-== Utilisation
-
-=== Génération de la documentation
+== Génération de la documentation
 
 Pour générer une documentation, elle doit être nommée "_source.adoc" et être placée dans le répertoire "srcdoc" de la racine
 
@@ -118,10 +36,14 @@ Vous pouvez également modifier les commandes effectuant la génération dans le
 
 image::util3.png[]
 
-=== Récupération de la documentation
+== Récupération de la documentation
 
 Une fois le push effectué, vous pourrez suivre l'avancement de la génération sur le site Travis-CI
 
+== Paramétrages
+
+La plupart des répertoires, noms et commandes utilisées peuvent être modifiées directement dans le fichier travisConfig/config.sh.
+Ce fichier est découpé en quatre catégories
 
 
 ****************************************************************
