@@ -16,8 +16,8 @@ public class Tests {
 
 	public static void main(String[] args) {
 		String fileName = "_result.mediawiki";
+		String fileHtmlName = "_result.html";
 
-		Scanner lecteur;
 		try {
 			System.out.println("Testing the file \"" + fileName + "\"");
 		
@@ -27,6 +27,8 @@ public class Tests {
 				System.exit(-3);
 			else if (!test_links(new Scanner(new File(fileName))))
 				System.exit(-4);
+			else if (!test_css(new Scanner(new File(fileHtmlName))))
+				System.exit(-5);
 		} catch (FileNotFoundException e) {
 			System.err.println("Couldn't test the file named \"" + fileName + "\"");
 			e.printStackTrace();
@@ -148,6 +150,33 @@ public class Tests {
 		}
 		
 		System.out.println("Images: OK");
+		return true;
+	}
+	
+	private static boolean test_css(Scanner lecteur) {
+		String toTest = "", fichier;
+
+		while (lecteur.hasNext()) {
+			toTest = lecteur.nextLine();
+
+			if (toTest.substring(0, 29).equals("<link rel=\"stylesheet\" href=\""))
+				fichier = toTest.substring(i + 29, toTest.length() - 2));
+			catch (IndexOutOfBoundsException ignored) {}
+			
+			if (fichier != null) {
+				File file = new File(fichier);
+				if (file.exists() && file.isFile()){
+					System.out.println("Css file: OK");
+					return true;
+				}
+				else {
+					System.err.println("Couldn't find " + fichier);
+					return false;
+				}
+			}
+		}
+		
+		System.out.println("Css file: OK");
 		return true;
 	}
 }
