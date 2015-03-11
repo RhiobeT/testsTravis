@@ -3,12 +3,11 @@ include::asciidoc.conf[]
 
 :toc-title: Sommaire
 
-= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation +
-Manuel d'installation
+= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation
 L'équipe responsable du projet <pierre.jeanjean@etu.univ-tlse2.fr>
 v1.3.1, {localdate}
 
-= Guide d'installation
+= Documentation utilisateur
 
 image::logo-DPT-Info.png[]
 
@@ -38,9 +37,7 @@ Ajoutez le service "Travis-CI"
 
 image::prep3.png[]
 
-Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet
-
-IMPORTANT : Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s'abonner au service
+Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de visibilité de votre projet
 
 image::prep4.png[]
 
@@ -103,9 +100,28 @@ Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne "    - secur
 
 image::dep8.png[]
 
-Enfin, ouvrez le fichier travisConfig/config.sh et modifiez la première ligne (après "essentiel") par l'adresse votre projet
+== Utilisation
 
-image::dep9.png[]
+=== Génération de la documentation
+
+Pour générer une documentation, elle doit être nommée "_source.adoc" et être placée dans le répertoire "srcdoc" de la racine
+
+image::util1.png[]
+
+Si vous avez besoin de générer des graphiques avec plantUML, placez également dans ce répertoire les fichiers sources au format .plantUML
+Le résultat de leur génération sera placé, par défaut, dans le répertoire "images", ce que vous pouvez changer en modifiant le fichier travisScripts/plantUML.sh
+
+image::util2.png[]
+
+Le document sera généré en html et en mediawiki
+Vous pouvez également modifier les commandes effectuant la génération dans le fichier ".travis.yml", entre les lignes 38 et 43
+
+image::util3.png[]
+
+=== Récupération de la documentation
+
+Une fois le push effectué, vous pourrez suivre l'avancement de la génération sur le site Travis-CI
+
 
 
 ****************************************************************

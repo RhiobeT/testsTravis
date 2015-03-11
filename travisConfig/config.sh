@@ -1,3 +1,10 @@
+# essentiel
+repository="https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git"
+
+
+
+
+
 # documentation generation
 sourceDir="$baseDir/srcdoc"
 imagesDir="$sourceDir/images"
@@ -54,7 +61,6 @@ function lancementTests {
 
 
 # push to GitHub
-repository="https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git"
 branch="doc_release"
 cloneDir="$baseDir/_doc_release"
 successDir="$cloneDir/doc_release"
