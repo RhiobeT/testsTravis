@@ -3,7 +3,7 @@ include::asciidoc.conf[]
 
 :toc-title: Sommaire
 
-= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation - Manuel d'installation
+= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation - Guide d'installation
 L'équipe responsable du projet <pierre.jeanjean@etu.univ-tlse2.fr>
 v1.3.1, {localdate}
 

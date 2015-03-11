@@ -7,6 +7,7 @@ repository="https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git"
 
 # documentation generation
 sourceDir="$baseDir/srcdoc"
+iconsDir="$sourceDir/icons"
 imagesDir="$sourceDir/images"
 sourceName="_source.adoc"
 stylesheetDir="./stylesheet"
@@ -68,6 +69,7 @@ failureDir="$cloneDir/doc_failed"
 
 toCommit=(
 	"-R $imagesDir"
+	"-R $iconsDir"
 	"-R $stylesheetDir"
 	"$sourceDir/*.html"
 	"$sourceDir/*.mediawiki"
