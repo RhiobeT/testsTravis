@@ -159,9 +159,12 @@ public class Tests {
 		while (lecteur.hasNext()) {
 			toTest = lecteur.nextLine();
 
-			if (toTest.substring(0, 29).equals("<link rel=\"stylesheet\" href=\""))
-				fichier = toTest.substring(i + 29, toTest.length() - 2));
-			catch (IndexOutOfBoundsException ignored) {}
+			if (toTest.substring(0, 29).equals("<link rel=\"stylesheet\" href=\"")) {
+				try {
+					fichier = toTest.substring(i + 29, toTest.length() - 2);
+				}
+				catch (IndexOutOfBoundsException ignored) {}
+			}
 			
 			if (fichier != null) {
 				File file = new File(fichier);
