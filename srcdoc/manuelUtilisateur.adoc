@@ -25,18 +25,22 @@ Pour générer une documentation, elle doit être nommée "_source.adoc" et êtr
 image::util1.png[]
 
 Si vous avez besoin de générer des graphiques avec plantUML, placez également dans ce répertoire les fichiers sources au format .plantUML
-Le résultat de leur génération sera placé, par défaut, dans le répertoire "images", ce que vous pouvez changer en modifiant le fichier travisScripts/plantUML.sh
-
-image::util2.png[]
+Le résultat de leur génération sera placé, par défaut, dans le répertoire "images" +
 
 Le document sera généré en html et en mediawiki
-Vous pouvez également modifier les commandes effectuant la génération dans le fichier ".travis.yml", entre les lignes 38 et 43
-
-image::util3.png[]
 
 == Récupération de la documentation
 
 Une fois le push effectué, vous pourrez suivre l'avancement de la génération sur le site Travis-CI
+
+image::recup1.png[]
+
+En cas de problème pour le passage des tests, c'est également sur ce site que vous obtiendrez un feedback
+
+image::recup2.png[]
+
+Une fois la documentation générée, vous la trouverez par défaut sur la branche "doc_release", dans le répertoire "doc_release" si aucun problème n'a été détecté ou dans le répertoire "doc_failure" sinon +
+
 
 == Paramétrages
 
