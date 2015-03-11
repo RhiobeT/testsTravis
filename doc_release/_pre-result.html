@@ -5,33 +5,30 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
-<meta name="author" content="Manuel d'installation">
-<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation</title>
+<meta name="author" content="L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;">
+<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Guide d&#8217;installation</title>
 <link rel="stylesheet" href="./stylesheet/asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation<br></h1>
+<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Guide d&#8217;installation</h1>
 <div class="details">
-<span id="author" class="author">Manuel d'installation</span><br>
-<span id="revdate">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span>
+<span id="author" class="author">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span><br>
+<span id="revnumber">version 1.3.1,</span>
+<span id="revdate">2015-03-11</span>
 </div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>v1.3.1, 2015-03-11</p>
-</div>
-</div>
-</div>
-<h1 id="_guide_d_installation" class="sect0">Guide d&#8217;installation</h1>
 <div class="imageblock">
 <div class="content">
 <img src="images/logo-DPT-Info.png" alt="logo DPT Info">
 </div>
 </div>
 <!-- toc disabled -->
+</div>
+</div>
 <div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
@@ -77,8 +74,17 @@ Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"</p>
 <div class="paragraph">
 <p>Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet</p>
 </div>
-<div class="paragraph">
-<p>IMPORTANT : Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s&#8217;abonner au service</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="icons/important.png" alt="Important">
+</td>
+<td class="content">
+Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s&#8217;abonner au service
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -201,7 +207,7 @@ Exécutez alors la commande "gem install travis"</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Enfin, ouvrez le fichier travisConfig/config.sh et modifiez la première ligne (après "essentiel") par l&#8217;adresse votre projet</p>
+<p>Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après "essentiel") par l&#8217;adresse de votre projet</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -223,7 +229,8 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-03-11 01:55:48 UTC
+Version 1.3.1<br>
+Last updated 2015-03-11 02:10:19 UTC
 </div>
 </div>
 </body>

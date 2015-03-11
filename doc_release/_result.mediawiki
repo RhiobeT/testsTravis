@@ -1,12 +1,7 @@
-= E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation<br />
- =
+= E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation - Guide d’installation =
 
-Manuel d'installation<br />
- L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;
-
-v1.3.1, 2015-03-11
-
-= Guide d’installation =
+L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;<br />
+ version 1.3.1, 2015-03-11
 
 [[Image:images/logo-DPT-Info.png|frame|none|alt=logo DPT Info]]
 
@@ -32,7 +27,14 @@ Ajoutez le service &quot;Travis-CI&quot;
 
 Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet
 
-IMPORTANT : Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s’abonner au service
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">[[Image:icons/important.png|Important]]</td>
+<td align="left">Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s’abonner au service</td>
+</tr>
+</tbody>
+</table>
 
 [[Image:images/prep4.png|frame|none|alt=prep4]]
 
@@ -92,11 +94,12 @@ Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne &quot; - sec
 
 [[Image:images/dep8.png|frame|none|alt=dep8]]
 
-Enfin, ouvrez le fichier travisConfig/config.sh et modifiez la première ligne (après &quot;essentiel&quot;) par l’adresse votre projet
+Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après &quot;essentiel&quot;) par l’adresse de votre projet
 
 [[Image:images/dep9.png|frame|none|alt=dep9]]
 
 Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:images/icons/88x31.png|Licence Creative Commons]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
-Last updated 2015-03-11 01:55:48 UTC
+Version 1.3.1<br />
+ Last updated 2015-03-11 02:10:19 UTC
 
