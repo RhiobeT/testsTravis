@@ -22,7 +22,7 @@ De plus, l'absence de tests automatiques rend difficile la détection de liens m
 
 Pour installer la solution sur un projet GitHub, il faut tout d'abord préparer le projet à utiliser le service d'intégration continue Travis-CI :
 
-La première étape consiste à activer le service Travis-CI sur GitHub.
+La première étape consiste à activer le service Travis-CI sur GitHub +
 Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"
 
 image::prep1.png[]
@@ -63,13 +63,13 @@ image::prep9.png[]
 
 == Déploiment de la solution
 
-Pour installer la solution sur votre projet, extrayez l'archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts)
+Pour installer la solution sur votre projet, extrayez l'archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts) +
 Rendez vous ensuite sur Travis-CI et activez l'intégration continue pour votre projet
 
 image::dep1.png[]
 
-Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée
-Une fois fait, vous aurez besoin d'un environnement de développement Ruby fonctionnel sur votre machine.
+Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée +
+Une fois fait, vous aurez besoin d'un environnement de développement Ruby fonctionnel sur votre machine +
 Exécutez alors la commande "gem install travis"
 
 image::dep2.png[]

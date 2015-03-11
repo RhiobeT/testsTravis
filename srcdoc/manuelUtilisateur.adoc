@@ -40,7 +40,9 @@ En cas de problème pour le passage des tests, c'est également sur ce site que 
 image::recup2.png[]
 
 Une fois la documentation générée, vous la trouverez par défaut sur la branche "doc_release", dans le répertoire "doc_release" si aucun problème n'a été détecté ou dans le répertoire "doc_failure" sinon +
+Les fichiers générés portent par défaut les noms "_result.html" et "_result.mediawiki"
 
+image::recup3.png[]
 
 == Paramétrages
 
