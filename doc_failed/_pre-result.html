@@ -6,26 +6,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
 <meta name="author" content="L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;">
-<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation</title>
-<link rel="stylesheet" href="/home/travis/build/RhiobeT/testsTravis/srcdoc/stylesheet/asciidoctor.css">
+<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Manuel d&#8217;installation</title>
+<link rel="stylesheet" href="./stylesheet/asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation</h1>
+<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Manuel d&#8217;installation</h1>
 <div class="details">
 <span id="author" class="author">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span><br>
 <span id="revnumber">version 1.3.1,</span>
-<span id="revdate">2015-03-10</span>
+<span id="revdate">2015-03-11</span>
 </div>
 </div>
 <div id="content">
-<h1 id="_documentation_utilisateur" class="sect0">Documentation utilisateur</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="imageblock">
 <div class="content">
 <img src="images/logo-DPT-Info.png" alt="logo DPT Info">
 </div>
 </div>
 <!-- toc disabled -->
+</div>
+</div>
 <div class="sect1">
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
@@ -69,7 +72,19 @@ Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de visibilité de votre projet</p>
+<p>Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="icons/important.png" alt="Important">
+</td>
+<td class="content">
+Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s&#8217;abonner au service
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -191,44 +206,13 @@ Exécutez alors la commande "gem install travis"</p>
 <img src="images/dep8.png" alt="dep8">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_utilisation">Utilisation</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_génération_de_la_documentation">Génération de la documentation</h3>
 <div class="paragraph">
-<p>Pour générer une documentation, elle doit être nommée "_source.adoc" et être placée dans le répertoire "srcdoc" de la racine</p>
+<p>Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après "essentiel") par l&#8217;adresse de votre projet</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/util1.png" alt="util1">
+<img src="images/dep9.png" alt="dep9">
 </div>
-</div>
-<div class="paragraph">
-<p>Si vous avez besoin de générer des graphiques avec plantUML, placez également dans ce répertoire les fichiers sources au format .plantUML
-Le résultat de leur génération sera placé, par défaut, dans le répertoire "images", ce que vous pouvez changer en modifiant le fichier travisScripts/plantUML.sh</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/util2.png" alt="util2">
-</div>
-</div>
-<div class="paragraph">
-<p>Le document sera généré en html et en mediawiki
-Vous pouvez également modifier les commandes effectuant la génération dans le fichier ".travis.yml", entre les lignes 38 et 43</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/util3.png" alt="util3">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_récupération_de_la_documentation">Récupération de la documentation</h3>
-<div class="paragraph">
-<p>Une fois le push effectué, vous pourrez suivre l&#8217;avancement de la génération sur le site Travis-CI</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -243,11 +227,10 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 </div>
 </div>
 </div>
-</div>
 <div id="footer">
 <div id="footer-text">
 Version 1.3.1<br>
-Last updated 2015-03-10 14:16:45 UTC
+Last updated 2015-03-11 02:01:19 UTC
 </div>
 </div>
 </body>
