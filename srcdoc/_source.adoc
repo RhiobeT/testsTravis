@@ -3,7 +3,7 @@ include::asciidoc.conf[]
 
 :toc-title: Sommaire
 
-= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation - Guide d'installation
+= E-ICGD : Environnement d'Intégration Continue de Génération de la Documentation - Manuel utilisateur
 L'équipe responsable du projet <pierre.jeanjean@etu.univ-tlse2.fr>
 v2.0, {localdate}
 
@@ -18,92 +18,43 @@ Actuellement l'équipe chargée de la réalisation de la documentation du plugin
 Or cette syntaxe n'est pas une des plus pratiques à utiliser : par exemple, elle n'offre pas la possibilité d'utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser.
 De plus, l'absence de tests automatiques rend difficile la détection de liens morts ainsi que l'absence de fichiers, sources ou images, dont l'importation est nécessaire pour l'affichage correct de la documentation.
 
-== Préparation de l'environnement
+== Génération de la documentation
 
-Pour installer la solution sur un projet GitHub, il faut tout d'abord préparer le projet à utiliser le service d'intégration continue Travis-CI :
+Pour générer une documentation, elle doit être nommée "_source.adoc" et être placée dans le répertoire "srcdoc" de la racine
 
-La première étape consiste à activer le service Travis-CI sur GitHub +
-Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"
+image::util1.png[]
 
-image::prep1.png[]
+Si vous avez besoin de générer des graphiques avec plantUML, placez également dans ce répertoire les fichiers sources au format .plantUML
+Le résultat de leur génération sera placé, par défaut, dans le répertoire "images" +
 
-Allez ensuite dans la section "Webhooks & Services"
+Le document sera généré en html et en mediawiki
 
-image::prep2.png[]
+== Récupération de la documentation
 
-Ajoutez le service "Travis-CI"
+Une fois le push effectué, vous pourrez suivre l'avancement de la génération sur le site Travis-CI
 
-image::prep3.png[]
+image::recup1.png[]
 
-Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet
+En cas de problème pour le passage des tests, c'est également sur ce site que vous obtiendrez un feedback
 
-IMPORTANT: Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s'abonner au service
+image::recup2.png[]
 
-image::prep4.png[]
+Une fois la documentation générée, vous la trouverez par défaut sur la branche "doc_release", dans le répertoire "doc_release" si aucun problème n'a été détecté ou dans le répertoire "doc_failure" sinon +
+Les fichiers générés portent par défaut les noms "_result.html" et "_result.mediawiki"
 
-Une fois sur Travis-CI, connectez vous avec votre compte GitHub
+image::recup3.png[]
 
-image::prep5.png[]
+== Paramétrages
 
-Autorisez ensuite l'application Travis CI
+La plupart des répertoires, noms et commandes utilisées peuvent être modifiées directement dans le fichier travisConfig/config.sh.
+Ce fichier est découpé en cinq catégories :
+* essentiel : contient l'adresse du repository, seule configuration devant être absolument modifiée
+* documentation generation : contient les accès à tous fichiers nécessaires à la documentation (source, images, css), ainsi que des fonctions lançant les générations
+* plantUML generation : contient le répertoire d'installation de plantUML, les répertoires "source" et "output" ainsi que la commande nécessaires à la conversion de fichiers .plantuml
+* tests : contient l'accès aux fichiers de tests et les commandes pour les compiler et les exécuter
+* push to GitHub : contient le nom de la branche où doit être fait le push, le répertoire où elle doit être clonée, les répertoires où stocker les fichiers générés en cas de succès ou d'échec, ainsi qu'une liste des fichiers et répertoires à ajouter au commit (précédés de "-R" si l'ajout doit être récursif)
 
-image::prep6.png[]
-
-Sur votre profil Travis CI, rendez-vous dans l'onglet "Profile" et notez votre Token
-
-image::prep7.png[]
-
-Retournez ensuite sur la page de GitHub contenant les champs à remplir, et utilisez le token noté précédemment (inutile d'indiquer le champ Domain) 
-
-image::prep8.png[]
-
-Créez également une nouvelle branche "doc_release" pour votre projet
-
-image::prep9.png[]
-
-== Déploiment de la solution
-
-Pour installer la solution sur votre projet, extrayez l'archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts) +
-Rendez vous ensuite sur Travis-CI et activez l'intégration continue pour votre projet
-
-image::dep1.png[]
-
-Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée +
-Une fois fait, vous aurez besoin d'un environnement de développement Ruby fonctionnel sur votre machine +
-Exécutez alors la commande "gem install travis"
-
-image::dep2.png[]
-
-Retournez sur GitHub et 	allez dans le menu Settings
-
-image::dep3.png[]
-
-Menu "Applications", Cliquez sur "Generate new token"
-
-image::dep4.png[]
-
-Cochez "repo" ou "public_repo" en fonction de la visibilité du projet, puis cliquez sur "Generate token"
-
-image::dep5.png[]
-
-Notez bien votre token, car vous ne pourrez pas le récupérer par la suite
-
-image::dep6.png[]
-
-Tapez la commande travis encrypt 'GIT_NAME="Nom d'utilisateur GitHub" GIT_EMAIL="Adresse mail GitHub" GH_TOKEN="Le token généré précédemment"' -r PropriétaireProjet/NomProjet
-
-image::dep7.png[]
-
-Notez ensuite la ligne résultat
-
-Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne "    - secure:..." par celle notée précédemment
-
-image::dep8.png[]
-
-Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après "essentiel") par l'adresse de votre projet
-
-image::dep9.png[]
-
+Si vous souhaitez changer un comportement différent, vous aurez sans doûte à modifier le fichier ".travis.yml", que des commentaires documentent de façon minimale
 
 ****************************************************************
 Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
