@@ -34,10 +34,11 @@ function mediawikiGenerationCommand2 {
 
 # plantUML generation
 plantumlDir="$baseDir/tools/plantuml.jar"
+plantumlSources="$sourceDir"
 plantumlOutput="$imagesDir"
 
 function plantumlCommand {
-	java -jar $plantumlDir -o $plantumlOutput *.plantuml
+	java -jar $plantumlDir -o $plantumlOutput $plantumlSources/*.plantuml
 }
 
 
