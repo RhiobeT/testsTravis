@@ -154,7 +154,7 @@ public class Tests {
 	}
 	
 	private static boolean test_css(Scanner lecteur) {
-		String toTest = "", fichier;
+		String toTest = "", fichier = null;
 
 		while (lecteur.hasNext()) {
 			toTest = lecteur.nextLine();
