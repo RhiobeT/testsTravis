@@ -13,7 +13,7 @@ toc::[]
 
 == Introduction
 
-{Papyrus} est un plugin {Eclipse} permettant la génération et l'édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation UML et ses dérivés, tels que SysML et MARTE.
+{Papyrus} est un plugin {Eclipse} permettant la génération et l'édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation {UML} et ses dérivés, tels que {SysML} et {MARTE}.
 Actuellement l'équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par {MediaWiki}, et la teste manuellement.
 Or cette syntaxe n'est pas une des plus pratiques à utiliser : par exemple, elle n'offre pas la possibilité d'utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser.
 De plus, l'absence de tests automatiques rend difficile la détection de liens morts ainsi que l'absence de fichiers, sources ou images, dont l'importation est nécessaire pour l'affichage correct de la documentation.
@@ -22,25 +22,25 @@ De plus, l'absence de tests automatiques rend difficile la détection de liens m
 
 image::DSS.png[]
 
-Suite à un commit des sources d'une documentation, le service d'intégration continue Travis-CI s'exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml. +
+Suite à un commit des sources d'une documentation, le service d'intégration continue {Travis-CI} s'exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml. +
 La machine virtuelle va alors effectuer les opérations suivantes :
 
-* Génération de diagrammes à partir de fichiers .plantuml (si il y en a)
+* Génération de diagrammes à partir de fichiers {PlantUML} (si il y en a)
 * Génération de la documentation au format HTML
-* Génération de la documentation au format MediaWiki
+* Génération de la documentation au format {MediaWiki}
 * Validation des documentations générées
 * Retour de la validation et des documentations générées
 
 Dans cette documentation, nous séparerons la maintenance de chacune de ces étapes.
 
-== Génération de diagrammes PlantUML
+== Génération de diagrammes {PlantUML}
 
 Cette opération est effectuée par le script travisScripts/plantUML.sh. +
-La variable "count" va contenir le nombre de fichiers correspondant à l'extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", ici le répertoire contenant les sources de la documentation).
+La variable "count" va contenir le nombre de fichiers correspondant à l'extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu'aucun fichier n'a été trouvé. +
 Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :
 
-* plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l'éxécutable)
+* plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l'exécutable)
 * plantumlExtension : extension des fichiers sources des diagrammes à générer
 * plantumlSources : répertoire contenant les fichiers sources des diagrammes
 * plantumlOutput : répertoire dans lequel doivent être placés les diagrammes générés
@@ -48,7 +48,7 @@ Les paramètres suivants sont configurables dans le fichier travisConfig/config.
 
 
 ****************************************************************
-Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
+Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
 Pour l'instant ce document est libre d'utilisation et géré par la 'Licence Creative Commons'.
 image:{iconsdir}/88x31.png["Licence Creative
 Commons",style="border-width:0",link="http://creativecommons.org/licenses/by-sa/3.0/"]
