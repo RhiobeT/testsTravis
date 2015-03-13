@@ -36,7 +36,7 @@ Dans cette documentation, nous séparerons la maintenance de chacune de ces éta
 == Génération de diagrammes PlantUML
 
 Cette opération est effectuée par le script travisScripts/plantUML.sh. +
-La variable "count" va contenir le nombre de fichiers correspondant à l'extension recherchée ("plantumlExtension", par défaut ".plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", ici le répertoire contenant les sources de la documentation).
+La variable "count" va contenir le nombre de fichiers correspondant à l'extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", ici le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu'aucun fichier n'a été trouvé. +
 Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :
 

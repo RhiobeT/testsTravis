@@ -42,7 +42,7 @@ function mediawikiGenerationCommand2 {
 
 # plantUML generation
 plantumlDir="$baseDir/tools/plantuml.jar"
-plantumlExtension=".plantuml"
+plantumlExtension="plantuml"
 plantumlSources="$sourceDir"
 plantumlOutput="$imagesDir"
 
