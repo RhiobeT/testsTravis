@@ -1,3 +1,12 @@
+/*
+	Project E-ICGD
+	Contributors:
+		Pierre Jeanjean
+		Quentin Lacoste
+		Florian Ouddane
+		Anselme Revuz
+*/
+
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;

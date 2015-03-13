@@ -1,3 +1,11 @@
+#!/bin/bash
+# Project E-ICGD
+# Contributors:
+#		Pierre Jeanjean
+#		Quentin Lacoste
+#		Florian Ouddane
+# 	Anselme Revuz
+
 # essentiel
 repository="https://${GH_TOKEN}:@github.com/RhiobeT/testsTravis.git"
 
@@ -34,11 +42,12 @@ function mediawikiGenerationCommand2 {
 
 # plantUML generation
 plantumlDir="$baseDir/tools/plantuml.jar"
+plantumlExtension=".plantuml"
 plantumlSources="$sourceDir"
 plantumlOutput="$imagesDir"
 
 function plantumlCommand {
-	java -jar $plantumlDir -o $plantumlOutput $plantumlSources/*.plantuml
+	java -jar $plantumlDir -o $plantumlOutput $plantumlSources/*.$plantumlExtension
 }
 
 

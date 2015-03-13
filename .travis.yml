@@ -1,3 +1,10 @@
+# Project E-ICGD
+# Contributors:
+#		Pierre Jeanjean
+#		Quentin Lacoste
+#		Florian Ouddane
+# 	Anselme Revuz
+
 language: java
 
 jdk:
