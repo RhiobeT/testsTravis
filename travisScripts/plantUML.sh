@@ -8,7 +8,7 @@
 
 count=$(ls -1 $plantumlSources/*.$plantumlExtension 2>/dev/null | wc -l)
 
-ls -1 $plantumlSources/*.$plantumlExtension 2>/dev/null
+echo count
 
 if [ $count > 0 ] ; then
 	plantumlCommand
