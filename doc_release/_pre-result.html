@@ -33,7 +33,7 @@
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="http://www.eclipse.org/papyrus/">Papyrus</a> est un plugin <a href="http://www.eclipse.org">eclipse</a> permettant la génération et l&#8217;édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation UML et ses dérivés, tels que SysML et MARTE.
+<p><a href="http://www.eclipse.org/papyrus/">Papyrus</a> est un plugin <a href="http://www.eclipse.org">eclipse</a> permettant la génération et l&#8217;édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation <a href="http://www.uml.org/">UML&#8482;</a> et ses dérivés, tels que <a href="http://www.omgsysml.org/">SysML&#8482;</a> et <a href="http://www.omgmarte.org/">MARTE</a>.
 Actuellement l&#8217;équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par <a href="https://www.mediawiki.org">MediaWiki</a>, et la teste manuellement.
 Or cette syntaxe n&#8217;est pas une des plus pratiques à utiliser : par exemple, elle n&#8217;offre pas la possibilité d&#8217;utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser.
 De plus, l&#8217;absence de tests automatiques rend difficile la détection de liens morts ainsi que l&#8217;absence de fichiers, sources ou images, dont l&#8217;importation est nécessaire pour l&#8217;affichage correct de la documentation.</p>
@@ -49,19 +49,19 @@ De plus, l&#8217;absence de tests automatiques rend difficile la détection de l
 </div>
 </div>
 <div class="paragraph">
-<p>Suite à un commit des sources d&#8217;une documentation, le service d&#8217;intégration continue Travis-CI s&#8217;exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br>
+<p>Suite à un commit des sources d&#8217;une documentation, le service d&#8217;intégration continue {Travis-CI} s&#8217;exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br>
 La machine virtuelle va alors effectuer les opérations suivantes :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Génération de diagrammes à partir de fichiers .plantuml (si il y en a)</p>
+<p>Génération de diagrammes à partir de fichiers <a href="http://plantuml.sourceforge.net/">plantUML</a> (si il y en a)</p>
 </li>
 <li>
 <p>Génération de la documentation au format HTML</p>
 </li>
 <li>
-<p>Génération de la documentation au format MediaWiki</p>
+<p>Génération de la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
 </li>
 <li>
 <p>Validation des documentations générées</p>
@@ -77,18 +77,18 @@ La machine virtuelle va alors effectuer les opérations suivantes :</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_génération_de_diagrammes_plantuml">Génération de diagrammes PlantUML</h2>
+<h2 id="_génération_de_diagrammes_http_plantuml_sourceforge_net_plantuml">Génération de diagrammes http://plantuml.sourceforge.net/[plantUML]</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Cette opération est effectuée par le script travisScripts/plantUML.sh.<br>
-La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut ".plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", ici le répertoire contenant les sources de la documentation).
+La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu&#8217;aucun fichier n&#8217;a été trouvé.<br>
 Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l&#8217;éxécutable)</p>
+<p>plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l&#8217;exécutable)</p>
 </li>
 <li>
 <p>plantumlExtension : extension des fichiers sources des diagrammes à générer</p>
@@ -107,7 +107,7 @@ Les paramètres suivants sont configurables dans le fichier travisConfig/config.
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Document réalisé par <a href="mailto:pierre.jeanjean@etu.univ-tlse2.fr">l&#8217;équipe en charge du projet EICGD</a> via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.2</code>) de 'Dan Allen', lui même basé sur <a href="http://www.methods.co.nz/asciidoc">AsciiDoc</a>.
+<p>Document réalisé par <a href="mailto:pierre.jeanjean@etu.univ-tlse2.fr">l&#8217;équipe en charge du projet EICGD</a> (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.2</code>) de 'Dan Allen', lui même basé sur <a href="http://www.methods.co.nz/asciidoc">AsciiDoc</a>.
 Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 'Licence Creative Commons'.
 <span class="image"><a class="image" href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="images/icons/88x31.png" alt="Licence Creative Commons"></a></span>
 <a href="http://creativecommons.org/licenses/by-sa/3.0/">licence Creative Commons Paternité - Partage à l&#39;Identique 3.0 non transposé</a>.</p>
@@ -120,7 +120,7 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2015-03-13 22:54:54 UTC
+Last updated 2015-03-13 22:56:19 UTC
 </div>
 </div>
 </body>
