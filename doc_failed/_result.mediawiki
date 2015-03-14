@@ -1,43 +1,91 @@
 = E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation - Documentation de Maintenance =
 
 L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;<br />
- version 2.0, 2015-03-13
+ version 2.0, 2015-03-14
 
 [[Image:images/logo-DPT-Info.png|frame|none|alt=logo DPT Info]]
 
 == Introduction ==
 
-[http://www.eclipse.org/papyrus/ Papyrus] est un plugin [http://www.eclipse.org eclipse] permettant la génération et l’édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation UML et ses dérivés, tels que SysML et MARTE. Actuellement l’équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par [https://www.mediawiki.org MediaWiki], et la teste manuellement. Or cette syntaxe n’est pas une des plus pratiques à utiliser : par exemple, elle n’offre pas la possibilité d’utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser. De plus, l’absence de tests automatiques rend difficile la détection de liens morts ainsi que l’absence de fichiers, sources ou images, dont l’importation est nécessaire pour l’affichage correct de la documentation.
+[http://www.eclipse.org/papyrus/ Papyrus] est un plugin [http://www.eclipse.org eclipse] permettant la génération et l’édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation [http://www.uml.org/ UML™] et ses dérivés, tels que [http://www.omgsysml.org/ SysML™] et [http://www.omgmarte.org/ MARTE]. Actuellement l’équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par [https://www.mediawiki.org MediaWiki], et la teste manuellement. Or cette syntaxe n’est pas une des plus pratiques à utiliser : par exemple, elle n’offre pas la possibilité d’utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser. De plus, l’absence de tests automatiques rend difficile la détection de liens morts ainsi que l’absence de fichiers, sources ou images, dont l’importation est nécessaire pour l’affichage correct de la documentation.
 
 == Diagramme de Séquence Système ==
 
 [[Image:images/DSS.png|frame|none|alt=DSS]]
 
-Suite à un commit des sources d’une documentation, le service d’intégration continue Travis-CI s’exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br />
+Suite à un commit des sources d’une documentation, le service d’intégration continue {Travis-CI} s’exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br />
  La machine virtuelle va alors effectuer les opérations suivantes :
 
-* Génération de diagrammes à partir de fichiers .plantuml (si il y en a)
+* Génération de diagrammes à partir de fichiers [http://plantuml.sourceforge.net/ plantUML] (si il y en a)
 * Génération de la documentation au format HTML
-* Génération de la documentation au format MediaWiki
+* Génération de la documentation au format [https://www.mediawiki.org MediaWiki]
 * Validation des documentations générées
 * Retour de la validation et des documentations générées
 
 Dans cette documentation, nous séparerons la maintenance de chacune de ces étapes.
 
-== Génération de diagrammes PlantUML ==
+== Génération de diagrammes http://plantuml.sourceforge.net/[plantUML] ==
 
 Cette opération est effectuée par le script travisScripts/plantUML.sh.<br />
- La variable &quot;count&quot; va contenir le nombre de fichiers correspondant à l’extension recherchée (&quot;plantumlExtension&quot;, par défaut &quot;.plantuml&quot;) présents dans le répertoire contenant les sources des diagrammes (&quot;plantumlSources&quot;, ici le répertoire contenant les sources de la documentation). Si il y a effectivement des fichiers à générer (&quot;count&quot; supérieur à 0), la fonction &quot;plantumlCommand&quot; est exécutée. Sinon, un message indique simplement qu’aucun fichier n’a été trouvé.<br />
- Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :
+ La variable &quot;count&quot; va contenir le nombre de fichiers correspondant à l’extension recherchée (&quot;plantumlExtension&quot;, par défaut &quot;plantuml&quot;) présents dans le répertoire contenant les sources des diagrammes (&quot;plantumlSources&quot;, par défaut le répertoire contenant les sources de la documentation). Si il y a effectivement des fichiers à générer (&quot;count&quot; supérieur à 0), la fonction &quot;plantumlCommand&quot; est exécutée. Sinon, un message indique simplement qu’aucun fichier n’a été trouvé.<br />
+ Les paramètres suivants sont configurables dans le fichier &quot;travisConfig/config.sh&quot; :
 
-* plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l’éxécutable)
+* plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l’exécutable)
 * plantumlExtension : extension des fichiers sources des diagrammes à générer
 * plantumlSources : répertoire contenant les fichiers sources des diagrammes
 * plantumlOutput : répertoire dans lequel doivent être placés les diagrammes générés
 * plantumlCommand : commande qui effectue la génération des diagrammes, à partir des 4 paramètres précédents
 
-Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:images/icons/88x31.png|Licence Creative Commons]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
+== Génération des documentations ==
+
+La fonction &quot;htmlGenerationCommand&quot;, appelée dans le fichier .travis.yml, génère la version html de la documentation. La fonction &quot;mediawikiGenerationCommand&quot; génère une autre version html, utilisée ensuite par &quot;mediawikiGenerationCommand2&quot; pour générer la version [https://www.mediawiki.org MediaWiki]. La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version [https://www.mediawiki.org MediaWiki], et ne contient pas de sommaire car le wiki [http://www.eclipse.org eclipse] le génère automatiquement.<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* sourceDir : répertoire contenant les sources de la documentation
+* iconsDir : répertoire contenant les icones utilisées dans la documentation
+* imagesDir : répertoire contenant les images utilisées dans la documentation
+* sourceName : nom du fichier source de la documentation (par défaut &quot;_source.adoc&quot;)
+* stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation
+* stylesheetName : nom de la feuille de style utilisée par la documentation
+* resultHtmlName : nom de la documentation html générée (par défaut &quot;_result.html&quot;)
+* preResultName : nom de la documentation html générée et utilisée pour la version [https://www.mediawiki.org MediaWiki] (par défaut &quot;_pre-result.html&quot;)
+* resultMediawikiName : nom de la documentation [https://www.mediawiki.org MediaWiki] générée (par défaut &quot;_result.mediawiki&quot;)
+* htmlGenerationCommand : commande qui génère la documentation au format html
+* mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation [https://www.mediawiki.org MediaWiki]
+* mediawikiGenerationCommand2 : commande qui génère la documentation au format [https://www.mediawiki.org MediaWiki]
+
+== Vérification des documentations ==
+
+Les tests de documentation sont situés dans le fichier &quot;testsdoc/Tests.java&quot; Actuellement, 4 tests sont inclus :
+
+* test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule
+* test_links() : vérifie que chaque lien soit accessible
+* test_images() : vérifie que chaque image soit accessible
+* test_css() : vérifie que la feuille de style css soit accessible
+
+Pour ajouter un nouveau test, il suffit d’ajouter au fichier une méthode statique retournant un booléen (&quot;true&quot; en cas de succès) précédée de l’annotation &quot;@Test&quot;. Vous pouvez utiliser les variables statiques &quot;mediawiki&quot; et &quot;html&quot;, donnant accès aux deux documentations.<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* testsClassName : nom de la classe contenant les tests
+* testsDir : répertoire contenant le fichier de tests
+* compilationTests : commande qui permet de compiler le fichier contenant les tests
+* lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, [https://www.mediawiki.org MediaWiki] et html. Si au moins un n’est pas indiqué, &quot;_result.mediawiki&quot; et &quot;_result.html&quot; par défaut)
+
+== Récupération des documentations ==
+
+La récupération des documentations se fait actuellement sur la branche &quot;doc_release&quot; du repository, dans des répertoires différents en fonction du résultat de leur validation. Une fois l’un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* repository : le repository sur lequel va s’effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé &quot;secure&quot; du fichier &quot;.travis.yml&quot;, tout comme &quot;$GIT_EMAIL&quot; et &quot;$GIT_NAME&quot;)
+* branch : la branche sur laquelle va s’effectuer la récupération
+* cloneDir : le répertoire de la machine virtuelle dans lequel va être clonée la branche &quot;branch&quot; (peu important, doit juste être un répertoire inexistant)
+* successDir : le répertoire dans lequel seront placées les documentations en cas de succès
+* failureDir : le répertoire dans lequel seront placées les documentations en cas d’échec
+* toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par &quot;-R&quot; afin de récupérer leur contenu récursivement)
+* copyToCommit : fonction qui copie l’ensemble des éléments renseignés dans &quot;toCommit&quot; dans le répertoire de récupération
+
+Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:icons/icons/88x31.png.png|88x31]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-13 22:37:10 UTC
+ Last updated 2015-03-14 02:39:18 UTC
 

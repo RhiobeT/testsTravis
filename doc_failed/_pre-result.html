@@ -15,7 +15,7 @@
 <div class="details">
 <span id="author" class="author">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span><br>
 <span id="revnumber">version 2.0,</span>
-<span id="revdate">2015-03-13</span>
+<span id="revdate">2015-03-14</span>
 </div>
 </div>
 <div id="content">
@@ -33,7 +33,7 @@
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="http://www.eclipse.org/papyrus/">Papyrus</a> est un plugin <a href="http://www.eclipse.org">eclipse</a> permettant la génération et l&#8217;édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation UML et ses dérivés, tels que SysML et MARTE.
+<p><a href="http://www.eclipse.org/papyrus/">Papyrus</a> est un plugin <a href="http://www.eclipse.org">eclipse</a> permettant la génération et l&#8217;édition de tous types de modèles EMF, et supportant en particulier le langage de modélisation <a href="http://www.uml.org/">UML&#8482;</a> et ses dérivés, tels que <a href="http://www.omgsysml.org/">SysML&#8482;</a> et <a href="http://www.omgmarte.org/">MARTE</a>.
 Actuellement l&#8217;équipe chargée de la réalisation de la documentation du plugin la rédige suivant le modèle utilisé par <a href="https://www.mediawiki.org">MediaWiki</a>, et la teste manuellement.
 Or cette syntaxe n&#8217;est pas une des plus pratiques à utiliser : par exemple, elle n&#8217;offre pas la possibilité d&#8217;utiliser des variables, ne permet pas de coloration syntaxique automatique, et la génération de certains éléments est particulièrement complexe à réaliser.
 De plus, l&#8217;absence de tests automatiques rend difficile la détection de liens morts ainsi que l&#8217;absence de fichiers, sources ou images, dont l&#8217;importation est nécessaire pour l&#8217;affichage correct de la documentation.</p>
@@ -49,19 +49,19 @@ De plus, l&#8217;absence de tests automatiques rend difficile la détection de l
 </div>
 </div>
 <div class="paragraph">
-<p>Suite à un commit des sources d&#8217;une documentation, le service d&#8217;intégration continue Travis-CI s&#8217;exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br>
+<p>Suite à un commit des sources d&#8217;une documentation, le service d&#8217;intégration continue {Travis-CI} s&#8217;exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br>
 La machine virtuelle va alors effectuer les opérations suivantes :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Génération de diagrammes à partir de fichiers .plantuml (si il y en a)</p>
+<p>Génération de diagrammes à partir de fichiers <a href="http://plantuml.sourceforge.net/">plantUML</a> (si il y en a)</p>
 </li>
 <li>
 <p>Génération de la documentation au format HTML</p>
 </li>
 <li>
-<p>Génération de la documentation au format MediaWiki</p>
+<p>Génération de la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
 </li>
 <li>
 <p>Validation des documentations générées</p>
@@ -77,18 +77,18 @@ La machine virtuelle va alors effectuer les opérations suivantes :</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_génération_de_diagrammes_plantuml">Génération de diagrammes PlantUML</h2>
+<h2 id="_génération_de_diagrammes_http_plantuml_sourceforge_net_plantuml">Génération de diagrammes http://plantuml.sourceforge.net/[plantUML]</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Cette opération est effectuée par le script travisScripts/plantUML.sh.<br>
-La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut ".plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", ici le répertoire contenant les sources de la documentation).
+La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu&#8217;aucun fichier n&#8217;a été trouvé.<br>
-Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :</p>
+Les paramètres suivants sont configurables dans le fichier "travisConfig/config.sh" :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l&#8217;éxécutable)</p>
+<p>plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l&#8217;exécutable)</p>
 </li>
 <li>
 <p>plantumlExtension : extension des fichiers sources des diagrammes à générer</p>
@@ -104,12 +104,144 @@ Les paramètres suivants sont configurables dans le fichier travisConfig/config.
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_génération_des_documentations">Génération des documentations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La fonction "htmlGenerationCommand", appelée dans le fichier .travis.yml, génère la version html de la documentation.
+La fonction "mediawikiGenerationCommand" génère une autre version html, utilisée ensuite par "mediawikiGenerationCommand2" pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>.
+La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>, et ne contient pas de sommaire car le wiki <a href="http://www.eclipse.org">eclipse</a> le génère automatiquement.<br>
+Le fichier "config.sh" contient les paramètres suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sourceDir : répertoire contenant les sources de la documentation</p>
+</li>
+<li>
+<p>iconsDir : répertoire contenant les icones utilisées dans la documentation</p>
+</li>
+<li>
+<p>imagesDir : répertoire contenant les images utilisées dans la documentation</p>
+</li>
+<li>
+<p>sourceName : nom du fichier source de la documentation (par défaut "_source.adoc")</p>
+</li>
+<li>
+<p>stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation</p>
+</li>
+<li>
+<p>stylesheetName : nom de la feuille de style utilisée par la documentation</p>
+</li>
+<li>
+<p>resultHtmlName : nom de la documentation html générée (par défaut "_result.html")</p>
+</li>
+<li>
+<p>preResultName : nom de la documentation html générée et utilisée pour la version <a href="https://www.mediawiki.org">MediaWiki</a> (par défaut "_pre-result.html")</p>
+</li>
+<li>
+<p>resultMediawikiName : nom de la documentation <a href="https://www.mediawiki.org">MediaWiki</a> générée (par défaut "_result.mediawiki")</p>
+</li>
+<li>
+<p>htmlGenerationCommand : commande qui génère la documentation au format html</p>
+</li>
+<li>
+<p>mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation <a href="https://www.mediawiki.org">MediaWiki</a></p>
+</li>
+<li>
+<p>mediawikiGenerationCommand2 : commande qui génère la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vérification_des_documentations">Vérification des documentations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les tests de documentation sont situés dans le fichier "testsdoc/Tests.java"
+Actuellement, 4 tests sont inclus :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule</p>
+</li>
+<li>
+<p>test_links() : vérifie que chaque lien soit accessible</p>
+</li>
+<li>
+<p>test_images() : vérifie que chaque image soit accessible</p>
+</li>
+<li>
+<p>test_css() : vérifie que la feuille de style css soit accessible</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour ajouter un nouveau test, il suffit d&#8217;ajouter au fichier une méthode statique retournant un booléen ("true" en cas de succès) précédée de l&#8217;annotation "@Test".
+Vous pouvez utiliser les variables statiques "mediawiki" et "html", donnant accès aux deux documentations.<br>
+Le fichier "config.sh" contient les paramètres suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>testsClassName : nom de la classe contenant les tests</p>
+</li>
+<li>
+<p>testsDir : répertoire contenant le fichier de tests</p>
+</li>
+<li>
+<p>compilationTests : commande qui permet de compiler le fichier contenant les tests</p>
+</li>
+<li>
+<p>lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, <a href="https://www.mediawiki.org">MediaWiki</a> et html. Si au moins un n&#8217;est pas indiqué, "_result.mediawiki" et "_result.html" par défaut)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_récupération_des_documentations">Récupération des documentations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La récupération des documentations se fait actuellement sur la branche "doc_release" du repository, dans des répertoires différents en fonction du résultat de leur validation.
+Une fois l&#8217;un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu<br>
+Le fichier "config.sh" contient les paramètres suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>repository : le repository sur lequel va s&#8217;effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé "secure" du fichier ".travis.yml", tout comme "$GIT_EMAIL" et "$GIT_NAME")</p>
+</li>
+<li>
+<p>branch : la branche sur laquelle va s&#8217;effectuer la récupération</p>
+</li>
+<li>
+<p>cloneDir : le répertoire de la machine virtuelle dans lequel va être clonée la branche "branch" (peu important, doit juste être un répertoire inexistant)</p>
+</li>
+<li>
+<p>successDir : le répertoire dans lequel seront placées les documentations en cas de succès</p>
+</li>
+<li>
+<p>failureDir : le répertoire dans lequel seront placées les documentations en cas d&#8217;échec</p>
+</li>
+<li>
+<p>toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par "-R" afin de récupérer leur contenu récursivement)</p>
+</li>
+<li>
+<p>copyToCommit : fonction qui copie l&#8217;ensemble des éléments renseignés dans "toCommit" dans le répertoire de récupération</p>
+</li>
+</ul>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>Document réalisé par <a href="mailto:pierre.jeanjean@etu.univ-tlse2.fr">l&#8217;équipe en charge du projet EICGD</a> via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.2</code>) de 'Dan Allen', lui même basé sur <a href="http://www.methods.co.nz/asciidoc">AsciiDoc</a>.
+<p>Document réalisé par <a href="mailto:pierre.jeanjean@etu.univ-tlse2.fr">l&#8217;équipe en charge du projet EICGD</a> (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.2</code>) de 'Dan Allen', lui même basé sur <a href="http://www.methods.co.nz/asciidoc">AsciiDoc</a>.
 Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 'Licence Creative Commons'.
-<span class="image"><a class="image" href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="images/icons/88x31.png" alt="Licence Creative Commons"></a></span>
+<span class="icon"><a class="image" href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="icons/icons/88x31.png.png" alt="88x31"></a></span>
 <a href="http://creativecommons.org/licenses/by-sa/3.0/">licence Creative Commons Paternité - Partage à l&#39;Identique 3.0 non transposé</a>.</p>
 </div>
 </div>
@@ -120,7 +252,7 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2015-03-13 22:37:10 UTC
+Last updated 2015-03-14 02:39:18 UTC
 </div>
 </div>
 </body>
