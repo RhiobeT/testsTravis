@@ -24,7 +24,7 @@ Suite à un commit des sources d’une documentation, le service d’intégratio
 
 Dans cette documentation, nous séparerons la maintenance de chacune de ces étapes.
 
-== Génération de diagrammes http://plantuml.sourceforge.net/[plantUML] ==
+== Génération de diagrammes plantUML ==
 
 Cette opération est effectuée par le script travisScripts/plantUML.sh.<br />
  La variable &quot;count&quot; va contenir le nombre de fichiers correspondant à l’extension recherchée (&quot;plantumlExtension&quot;, par défaut &quot;plantuml&quot;) présents dans le répertoire contenant les sources des diagrammes (&quot;plantumlSources&quot;, par défaut le répertoire contenant les sources de la documentation). Si il y a effectivement des fichiers à générer (&quot;count&quot; supérieur à 0), la fonction &quot;plantumlCommand&quot; est exécutée. Sinon, un message indique simplement qu’aucun fichier n’a été trouvé.<br />
@@ -73,7 +73,7 @@ Pour ajouter un nouveau test, il suffit d’ajouter au fichier une méthode stat
 
 == Récupération des documentations ==
 
-La récupération des documentations se fait actuellement sur la branche &quot;doc_release&quot; du repository, dans des répertoires différents en fonction du résultat de leur validation. Une fois l’un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu<br />
+La récupération des documentations se fait actuellement sur la branche &quot;doc_release&quot; du repository, dans des répertoires différents en fonction du résultat de leur validation. Une fois l’un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu.<br />
  Le fichier &quot;config.sh&quot; contient les paramètres suivants :
 
 * repository : le repository sur lequel va s’effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé &quot;secure&quot; du fichier &quot;.travis.yml&quot;, tout comme &quot;$GIT_EMAIL&quot; et &quot;$GIT_NAME&quot;)
@@ -87,5 +87,5 @@ La récupération des documentations se fait actuellement sur la branche &quot;d
 Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:icons/88x31.png|88x31]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-14 02:46:36 UTC
+ Last updated 2015-03-14 02:51:43 UTC
 
