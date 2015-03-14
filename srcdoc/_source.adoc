@@ -85,11 +85,25 @@ Le fichier "config.sh" contient les paramètres suivants :
 * compilationTests : commande qui permet de compiler le fichier contenant les tests
 * lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, {MediaWiki} et html. Si au moins un n'est pas indiqué, "_result.mediawiki" et "_result.html" par défaut)
 
+== Récupération des documentations
+
+La récupération des documentations se fait actuellement sur la branche "doc_release" du repository, dans des répertoires différents en fonction du résultat de leur validation.
+Une fois l'un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu +
+Le fichier "config.sh" contient les paramètres suivants :
+
+* repository : le repository sur lequel va s'effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé "secure" du fichier ".travis.yml", tout comme "$GIT_EMAIL" et "$GIT_NAME")
+* branch : la branche sur laquelle va s'effectuer la récupération
+* cloneDir : le répertoire de la machine virtuelle dans lequel va être clonée la branche "branch" (peu important, doit juste être un répertoire inexistant)
+* successDir : le répertoire dans lequel seront placées les documentations en cas de succès
+* failureDir : le répertoire dans lequel seront placées les documentations en cas d'échec
+* toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par "-R" afin de récupérer leur contenu récursivement)
+* copyToCommit : fonction qui copie l'ensemble des éléments renseignés dans "toCommit" dans le répertoire de récupération
+
 
 ****************************************************************
 Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
 Pour l'instant ce document est libre d'utilisation et géré par la 'Licence Creative Commons'.
-icon::{iconsdir}/88x31.png["Licence Creative
+icon:{iconsdir}/88x31.png["Licence Creative
 Commons",style="border-width:0",link="http://creativecommons.org/licenses/by-sa/3.0/"]
 http://creativecommons.org/licenses/by-sa/3.0/[licence Creative Commons Paternité - Partage à l&#39;Identique 3.0 non transposé].
 ****************************************************************

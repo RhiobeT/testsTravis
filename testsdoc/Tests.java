@@ -39,10 +39,10 @@ public class Tests {
 			mediawiki = new File(args[0]);
 			html = new File(args[1]);
 		}
+		
+		System.out.println("Testing the files \"" + html.getName() + "\" and \"" + mediawiki.getName() + "\"");
 		for (Method method : Tests.class.getMethods()) {
 			if (method.getAnnotation(Test.class) != null) {
-				System.out.println("Testing the files \"" + html.getName() + "\" and \"" + mediawiki.getName() + "\"");
-
 				try {
 					if (!((Boolean) method.invoke(null)))
 						System.exit(-20);
