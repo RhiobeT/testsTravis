@@ -38,13 +38,31 @@ Dans cette documentation, nous séparerons la maintenance de chacune de ces éta
 Cette opération est effectuée par le script travisScripts/plantUML.sh. +
 La variable "count" va contenir le nombre de fichiers correspondant à l'extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu'aucun fichier n'a été trouvé. +
-Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :
+Les paramètres suivants sont configurables dans le fichier "travisConfig/config.sh" :
 
 * plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l'exécutable)
 * plantumlExtension : extension des fichiers sources des diagrammes à générer
 * plantumlSources : répertoire contenant les fichiers sources des diagrammes
 * plantumlOutput : répertoire dans lequel doivent être placés les diagrammes générés
 * plantumlCommand : commande qui effectue la génération des diagrammes, à partir des 4 paramètres précédents
+
+== Génération des documentations
+
+La fonction "htmlGenerationCommand", appelée dans le fichier .travis.yml, génère la version html de la documentation.
+La fonction "mediawikiGenerationCommand" génère une autre version html, utilisée ensuite par "mediawikiGenerationCommand2" pour générer la version {MediaWiki}.
+La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version {MediaWiki}, et ne contient pas de sommaire car le wiki {Eclipse} le génère automatiquement. +
+Le fichier "config.sh" contient les paramètres suivants :
+
+* sourceDir : répertoire contenant les sources de la documentation
+* iconsDir : répertoire contenant les icones utilisées dans la documentation
+* imagesDir : répertoire contenant les images utilisées dans la documentation
+* sourceName : nom du fichier source de la documentation (par défaut "_source.adoc")
+* stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation
+* stylesheetName : nom de la feuille de style utilisée par la documentation
+* resultHtmlName : nom de la documentation html générée (par défaut "_result.html")
+* preResultName : nom de la documentation html générée et utilisée pour la version {MediaWiki} (par défaut "_pre-result.html")
+* resultMediawikiName : nom de la documentation {MediaWiki} générée (par défaut "_result.mediawiki")
+
 
 
 ****************************************************************

@@ -55,7 +55,7 @@ Ce fichier est découpé en cinq catégories :
 * tests : contient l'accès aux fichiers de tests et les commandes pour les compiler et les exécuter
 * push to GitHub : contient le nom de la branche où doit être fait le push, le répertoire où elle doit être clonée, les répertoires où stocker les fichiers générés en cas de succès ou d'échec, ainsi qu'une liste des fichiers et répertoires à ajouter au commit (précédés de "-R" si l'ajout doit être récursif)
 
-Si vous souhaitez changer un comportement différent, vous aurez sans doûte à modifier le fichier ".travis.yml", que des commentaires documentent de façon minimale
+Vous trouverez plus de renseigenements sur la configuration dans la documentation de maintenance.
 
 ****************************************************************
 Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
