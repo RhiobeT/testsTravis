@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.2">
 <meta name="author" content="L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;">
-<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Documentation de Maintenance</title>
+<title>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Guide d&#8217;installation</title>
 <link rel="stylesheet" href="./stylesheet/asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Documentation de Maintenance</h1>
+<h1>E-ICGD : Environnement d&#8217;Intégration Continue de Génération de la Documentation - Guide d&#8217;installation</h1>
 <div class="details">
 <span id="author" class="author">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span><br>
 <span id="revnumber">version 2.0,</span>
@@ -41,200 +41,178 @@ De plus, l&#8217;absence de tests automatiques rend difficile la détection de l
 </div>
 </div>
 <div class="sect1">
-<h2 id="_diagramme_de_séquence_système">Diagramme de Séquence Système</h2>
+<h2 id="_préparation_de_l_environnement">Préparation de l&#8217;environnement</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Pour installer la solution sur un projet GitHub, il faut tout d&#8217;abord préparer le projet à utiliser le service d&#8217;intégration continue Travis-CI :</p>
+</div>
+<div class="paragraph">
+<p>La première étape consiste à activer le service Travis-CI sur GitHub<br>
+Pour cela, rendez-vous sur la page de votre projet et cliquez sur "Settings"</p>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="images/DSS.png" alt="DSS">
+<img src="images/prep1.png" alt="prep1">
 </div>
 </div>
 <div class="paragraph">
-<p>Suite à un commit des sources d&#8217;une documentation, le service d&#8217;intégration continue {Travis-CI} s&#8217;exécute et prépare une machine virtuelle, qui exécutera le script contenu dans le fichier .travis.yml.<br>
-La machine virtuelle va alors effectuer les opérations suivantes :</p>
+<p>Allez ensuite dans la section "Webhooks &amp; Services"</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Génération de diagrammes à partir de fichiers <a href="http://plantuml.sourceforge.net/">plantUML</a> (si il y en a)</p>
-</li>
-<li>
-<p>Génération de la documentation au format HTML</p>
-</li>
-<li>
-<p>Génération de la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
-</li>
-<li>
-<p>Validation des documentations générées</p>
-</li>
-<li>
-<p>Retour de la validation et des documentations générées</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep2.png" alt="prep2">
+</div>
 </div>
 <div class="paragraph">
-<p>Dans cette documentation, nous séparerons la maintenance de chacune de ces étapes.</p>
+<p>Ajoutez le service "Travis-CI"</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep3.png" alt="prep3">
+</div>
+</div>
+<div class="paragraph">
+<p>Afin de remplir les champs, cliquez sur un des deux liens suivants en fonction de la visibilité de votre projet</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="icons/important.png" alt="Important">
+</td>
+<td class="content">
+Notez que la version de Travis-CI destinée aux projets privés propose gratuitement une centaine de builds, après quoi il devient nécessaire de s&#8217;abonner au service
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep4.png" alt="prep4">
+</div>
+</div>
+<div class="paragraph">
+<p>Une fois sur Travis-CI, connectez vous avec votre compte GitHub</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep5.png" alt="prep5">
+</div>
+</div>
+<div class="paragraph">
+<p>Autorisez ensuite l&#8217;application Travis CI</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep6.png" alt="prep6">
+</div>
+</div>
+<div class="paragraph">
+<p>Sur votre profil Travis CI, rendez-vous dans l&#8217;onglet "Profile" et notez votre Token</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep7.png" alt="prep7">
+</div>
+</div>
+<div class="paragraph">
+<p>Retournez ensuite sur la page de GitHub contenant les champs à remplir, et utilisez le token noté précédemment (inutile d&#8217;indiquer le champ Domain)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep8.png" alt="prep8">
+</div>
+</div>
+<div class="paragraph">
+<p>Créez également une nouvelle branche "doc_release" pour votre projet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/prep9.png" alt="prep9">
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_génération_de_diagrammes_plantuml">Génération de diagrammes plantUML</h2>
+<h2 id="_déploiment_de_la_solution">Déploiment de la solution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Cette opération est effectuée par le script travisScripts/plantUML.sh.<br>
-La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
-Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu&#8217;aucun fichier n&#8217;a été trouvé.<br>
-Les paramètres suivants sont configurables dans le fichier "travisConfig/config.sh" :</p>
+<p>Pour installer la solution sur votre projet, extrayez l&#8217;archive fournie à la racine de votre projet (le fichier .travis.yml et les répertoires srcdoc, testsdoc, tools et travisScripts)<br>
+Rendez vous ensuite sur Travis-CI et activez l&#8217;intégration continue pour votre projet</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l&#8217;exécutable)</p>
-</li>
-<li>
-<p>plantumlExtension : extension des fichiers sources des diagrammes à générer</p>
-</li>
-<li>
-<p>plantumlSources : répertoire contenant les fichiers sources des diagrammes</p>
-</li>
-<li>
-<p>plantumlOutput : répertoire dans lequel doivent être placés les diagrammes générés</p>
-</li>
-<li>
-<p>plantumlCommand : commande qui effectue la génération des diagrammes, à partir des 4 paramètres précédents</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep1.png" alt="dep1">
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_génération_des_documentations">Génération des documentations</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>La fonction "htmlGenerationCommand", appelée dans le fichier .travis.yml, génère la version html de la documentation.
-La fonction "mediawikiGenerationCommand" génère une autre version html, utilisée ensuite par "mediawikiGenerationCommand2" pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>.
-La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>, et ne contient pas de sommaire car le wiki <a href="http://www.eclipse.org">eclipse</a> le génère automatiquement.<br>
-Le fichier "config.sh" contient les paramètres suivants :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>sourceDir : répertoire contenant les sources de la documentation</p>
-</li>
-<li>
-<p>iconsDir : répertoire contenant les icones utilisées dans la documentation</p>
-</li>
-<li>
-<p>imagesDir : répertoire contenant les images utilisées dans la documentation</p>
-</li>
-<li>
-<p>sourceName : nom du fichier source de la documentation (par défaut "_source.adoc")</p>
-</li>
-<li>
-<p>stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation</p>
-</li>
-<li>
-<p>stylesheetName : nom de la feuille de style utilisée par la documentation</p>
-</li>
-<li>
-<p>resultHtmlName : nom de la documentation html générée (par défaut "_result.html")</p>
-</li>
-<li>
-<p>preResultName : nom de la documentation html générée et utilisée pour la version <a href="https://www.mediawiki.org">MediaWiki</a> (par défaut "_pre-result.html")</p>
-</li>
-<li>
-<p>resultMediawikiName : nom de la documentation <a href="https://www.mediawiki.org">MediaWiki</a> générée (par défaut "_result.mediawiki")</p>
-</li>
-<li>
-<p>htmlGenerationCommand : commande qui génère la documentation au format html</p>
-</li>
-<li>
-<p>mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation <a href="https://www.mediawiki.org">MediaWiki</a></p>
-</li>
-<li>
-<p>mediawikiGenerationCommand2 : commande qui génère la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_vérification_des_documentations">Vérification des documentations</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Les tests de documentation sont situés dans le fichier "testsdoc/Tests.java"
-Actuellement, 4 tests sont inclus :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule</p>
-</li>
-<li>
-<p>test_links() : vérifie que chaque lien soit accessible</p>
-</li>
-<li>
-<p>test_images() : vérifie que chaque image soit accessible</p>
-</li>
-<li>
-<p>test_css() : vérifie que la feuille de style css soit accessible</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p>Pour ajouter un nouveau test, il suffit d&#8217;ajouter au fichier une méthode statique retournant un booléen ("true" en cas de succès) précédée de l&#8217;annotation "@Test".
-Vous pouvez utiliser les variables statiques "mediawiki" et "html", donnant accès aux deux documentations.<br>
-Le fichier "config.sh" contient les paramètres suivants :</p>
+<p>Ensuite, il vous faudra définir quel compte GitHub sera utilisé pour commit la documentation générée<br>
+Une fois fait, vous aurez besoin d&#8217;un environnement de développement Ruby fonctionnel sur votre machine<br>
+Exécutez alors la commande "gem install travis"</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>testsClassName : nom de la classe contenant les tests</p>
-</li>
-<li>
-<p>testsDir : répertoire contenant le fichier de tests</p>
-</li>
-<li>
-<p>compilationTests : commande qui permet de compiler le fichier contenant les tests</p>
-</li>
-<li>
-<p>lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, <a href="https://www.mediawiki.org">MediaWiki</a> et html. Si au moins un n&#8217;est pas indiqué, "_result.mediawiki" et "_result.html" par défaut)</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep2.png" alt="dep2">
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_récupération_des_documentations">Récupération des documentations</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>La récupération des documentations se fait actuellement sur la branche "doc_release" du repository, dans des répertoires différents en fonction du résultat de leur validation.
-Une fois l&#8217;un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu.<br>
-Le fichier "config.sh" contient les paramètres suivants :</p>
+<p>Retournez sur GitHub et 	allez dans le menu Settings</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>repository : le repository sur lequel va s&#8217;effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé "secure" du fichier ".travis.yml", tout comme "$GIT_EMAIL" et "$GIT_NAME")</p>
-</li>
-<li>
-<p>branch : la branche sur laquelle va s&#8217;effectuer la récupération</p>
-</li>
-<li>
-<p>cloneDir : le répertoire de la machine virtuelle dans lequel va être clonée la branche "branch" (peu important, doit juste être un répertoire inexistant)</p>
-</li>
-<li>
-<p>successDir : le répertoire dans lequel seront placées les documentations en cas de succès</p>
-</li>
-<li>
-<p>failureDir : le répertoire dans lequel seront placées les documentations en cas d&#8217;échec</p>
-</li>
-<li>
-<p>toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par "-R" afin de récupérer leur contenu récursivement)</p>
-</li>
-<li>
-<p>copyToCommit : fonction qui copie l&#8217;ensemble des éléments renseignés dans "toCommit" dans le répertoire de récupération</p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep3.png" alt="dep3">
+</div>
+</div>
+<div class="paragraph">
+<p>Menu "Applications", Cliquez sur "Generate new token"</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep4.png" alt="dep4">
+</div>
+</div>
+<div class="paragraph">
+<p>Cochez "repo" ou "public_repo" en fonction de la visibilité du projet, puis cliquez sur "Generate token"</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep5.png" alt="dep5">
+</div>
+</div>
+<div class="paragraph">
+<p>Notez bien votre token, car vous ne pourrez pas le récupérer par la suite</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep6.png" alt="dep6">
+</div>
+</div>
+<div class="paragraph">
+<p>Tapez la commande travis encrypt 'GIT_NAME="Nom d&#8217;utilisateur GitHub" GIT_EMAIL="Adresse mail GitHub" GH_TOKEN="Le token généré précédemment"' -r PropriétaireProjet/NomProjet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep7.png" alt="dep7">
+</div>
+</div>
+<div class="paragraph">
+<p>Notez ensuite la ligne résultat</p>
+</div>
+<div class="paragraph">
+<p>Dans le projet, ouvrez le fichier .travis.yml et remplacez la ligne "    - secure:&#8230;&#8203;" par celle notée précédemment</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep8.png" alt="dep8">
+</div>
+</div>
+<div class="paragraph">
+<p>Enfin, ouvrez le fichier travisConfig/config.sh et remplacez la première ligne (après "essentiel") par l&#8217;adresse de votre projet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/dep9.png" alt="dep9">
+</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -252,7 +230,7 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2015-03-14 02:51:43 UTC
+Last updated 2015-03-14 02:56:36 UTC
 </div>
 </div>
 </body>
