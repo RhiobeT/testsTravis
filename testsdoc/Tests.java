@@ -11,43 +11,59 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.Boolean;
+import java.lang.IllegalAccessException;
+import java.lang.System;
+import java.lang.annotation.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Map.Entry;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+@interface Test {}
+
 public class Tests {
+	
+	private static File mediawiki = new File("_result.mediawiki");
+	private static File html = new File("_result.html");
 
 	public static void main(String[] args) {
-		String fileName = "_result.mediawiki";
-		String fileHtmlName = "_result.html";
-
-		try {
-			System.out.println("Testing the file \"" + fileName + "\"");
-		
-			if (!test_upperCaseForTitles(new Scanner(new File(fileName))))
-				System.exit(-2);
-			else if (!test_images(new Scanner(new File(fileName))))
-				System.exit(-3);
-			else if (!test_links(new Scanner(new File(fileName))))
-				System.exit(-4);
-			else if (!test_css(new Scanner(new File(fileHtmlName))))
-				System.exit(-5);
-		} catch (FileNotFoundException e) {
-			System.err.println("Couldn't test the file named \"" + fileName + "\"");
-			e.printStackTrace();
-			System.exit(-1);
+		if (args.length >= 2) {
+			mediawiki = new File(args[0]);
+			html = new File(args[1]);
 		}
+		for (Method method : Tests.class.getMethods()) {
+			if (method.getAnnotation(Test.class) != null) {
+				System.out.println("Testing the files \"" + html.getName() + "\" and \"" + mediawiki.getName() + "\"");
 
+				try {
+					if (!((Boolean) method.invoke(null)))
+						System.exit(-20);
+				} catch (InvocationTargetException e) {
+					System.err.println("Couldn't test one of the files");
+					e.printStackTrace();
+					System.exit(-10);
+				} catch (IllegalAccessException e) {
+					System.err.println("An error occurred while launching " + method.getName());
+					e.printStackTrace();
+					System.exit(-11);
+				}
+			}
+		}
 	}
 
-	private static boolean test_upperCaseForTitles(Scanner lecteur) {
-		String toTest = "";
+	@Test // Checks that each title starts with an uppercase letter
+	public static boolean test_upperCaseForTitles() throws FileNotFoundException {
+		Scanner lecteur = new Scanner(mediawiki);
+		
+		String toTest;
 		
 		while (lecteur.hasNextLine()) {
 			toTest = lecteur.nextLine();
@@ -78,8 +94,10 @@ public class Tests {
 		return true;
 	}
 
-	private static boolean test_links(Scanner lecteur) {
-		String toTest = "", link;
+	@Test // Checks that each link is still working
+	public static boolean test_links() throws FileNotFoundException {
+		Scanner lecteur = new Scanner(mediawiki);
+		String toTest, link;
 
 		while (lecteur.hasNext()) {
 			toTest = lecteur.nextLine();
@@ -127,8 +145,10 @@ public class Tests {
 		return true;
 	}
 
-	private static boolean test_images(Scanner lecteur) {
-		String toTest = "", image;
+	@Test // checks that each image is accessible
+	public static boolean test_images() throws FileNotFoundException {
+		Scanner lecteur = new Scanner(mediawiki);
+		String toTest, image;
 
 		while (lecteur.hasNext()) {
 			toTest = lecteur.nextLine();
@@ -149,7 +169,7 @@ public class Tests {
 						}
 					}
 					try {
-						Image img = ImageIO.read(new File(image));
+						ImageIO.read(new File(image));
 					} catch (IOException e) {
 						System.err.println("Couldn't find " + image);
 						return false;
@@ -162,8 +182,10 @@ public class Tests {
 		return true;
 	}
 	
-	private static boolean test_css(Scanner lecteur) {
-		String toTest = "", fichier = null;
+	@Test // checks that the css stylesheet is accessible
+	public static boolean test_css() throws FileNotFoundException {
+		Scanner lecteur = new Scanner(html);
+		String toTest, fichier = null;
 
 		while (lecteur.hasNext()) {
 			toTest = lecteur.nextLine();

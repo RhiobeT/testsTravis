@@ -55,16 +55,15 @@ function plantumlCommand {
 
 
 # tests
-testsSourceName="Tests.java"
 testsClassName="Tests"
 testsDir="$baseDir/testsdoc"
 
 function compilationTests {
-	javac -d $sourceDir $testsDir/$testsSourceName
+	javac -d $sourceDir $testsDir/$testsClassName.java
 }
 
 function lancementTests {
-	java $testsClassName
+	java $testsClassName $resultMediawikiName $resultHtmlName
 }
 
 

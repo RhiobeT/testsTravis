@@ -62,13 +62,34 @@ Le fichier "config.sh" contient les paramètres suivants :
 * resultHtmlName : nom de la documentation html générée (par défaut "_result.html")
 * preResultName : nom de la documentation html générée et utilisée pour la version {MediaWiki} (par défaut "_pre-result.html")
 * resultMediawikiName : nom de la documentation {MediaWiki} générée (par défaut "_result.mediawiki")
+* htmlGenerationCommand : commande qui génère la documentation au format html
+* mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation {MediaWiki}
+* mediawikiGenerationCommand2 : commande qui génère la documentation au format {MediaWiki}
 
+== Vérification des documentations
+
+Les tests de documentation sont situés dans le fichier "testsdoc/Tests.java"
+Actuellement, 4 tests sont inclus :
+
+* test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule
+* test_links() : vérifie que chaque lien soit accessible
+* test_images() : vérifie que chaque image soit accessible
+* test_css() : vérifie que la feuille de style css soit accessible
+
+Pour ajouter un nouveau test, il suffit d'ajouter au fichier une méthode statique retournant un booléen ("true" en cas de succès) précédée de l'annotation "@Test".
+Vous pouvez utiliser les variables statiques "mediawiki" et "html", donnant accès aux deux documentations. +
+Le fichier "config.sh" contient les paramètres suivants :
+
+* testsClassName : nom de la classe contenant les tests
+* testsDir : répertoire contenant le fichier de tests
+* compilationTests : commande qui permet de compiler le fichier contenant les tests
+* lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, {MediaWiki} et html. Si au moins un n'est pas indiqué, "_result.mediawiki" et "_result.html" par défaut)
 
 
 ****************************************************************
 Document réalisé par mailto:pierre.jeanjean@etu.univ-tlse2.fr[l'équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via {asciidoctorlink} (version `{asciidoctor-version}`) de 'Dan Allen', lui même basé sur {asciidoc}.
 Pour l'instant ce document est libre d'utilisation et géré par la 'Licence Creative Commons'.
-image:{iconsdir}/88x31.png["Licence Creative
+icon::{iconsdir}/88x31.png["Licence Creative
 Commons",style="border-width:0",link="http://creativecommons.org/licenses/by-sa/3.0/"]
 http://creativecommons.org/licenses/by-sa/3.0/[licence Creative Commons Paternité - Partage à l&#39;Identique 3.0 non transposé].
 ****************************************************************
