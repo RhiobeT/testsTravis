@@ -84,8 +84,8 @@ La récupération des documentations se fait actuellement sur la branche &quot;d
 * toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par &quot;-R&quot; afin de récupérer leur contenu récursivement)
 * copyToCommit : fonction qui copie l’ensemble des éléments renseignés dans &quot;toCommit&quot; dans le répertoire de récupération
 
-Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:icons/icons/88x31.png.png|88x31]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
+Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:icons/88x31.png.png|88x31]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-14 02:39:18 UTC
+ Last updated 2015-03-14 02:42:36 UTC
 
