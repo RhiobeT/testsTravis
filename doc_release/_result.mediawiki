@@ -71,8 +71,21 @@ Pour ajouter un nouveau test, il suffit d’ajouter au fichier une méthode stat
 * compilationTests : commande qui permet de compiler le fichier contenant les tests
 * lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, [https://www.mediawiki.org MediaWiki] et html. Si au moins un n’est pas indiqué, &quot;_result.mediawiki&quot; et &quot;_result.html&quot; par défaut)
 
-Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. icon::icons/88x31.png[&quot;Licence Creative Commons&quot;,style=&quot;border-width:0&quot;,link=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
+== Récupération des documentations ==
+
+La récupération des documentations se fait actuellement sur la branche &quot;doc_release&quot; du repository, dans des répertoires différents en fonction du résultat de leur validation. Une fois l’un des deux noms de répertoires choisi, on le (re)crée sur la branche indiquée et on y copie les éléments à récupérer. Ce répertoire sera ensuite ajouté pour être commit, puis un push aura lieu<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* repository : le repository sur lequel va s’effectuer la récupération (la variable ${GH_TOKEN} est issue de la clé &quot;secure&quot; du fichier &quot;.travis.yml&quot;, tout comme &quot;$GIT_EMAIL&quot; et &quot;$GIT_NAME&quot;)
+* branch : la branche sur laquelle va s’effectuer la récupération
+* cloneDir : le répertoire de la machine virtuelle dans lequel va être clonée la branche &quot;branch&quot; (peu important, doit juste être un répertoire inexistant)
+* successDir : le répertoire dans lequel seront placées les documentations en cas de succès
+* failureDir : le répertoire dans lequel seront placées les documentations en cas d’échec
+* toCommit : ensemble des fichiers et répertoires qui seront récupérés (précéder les répertoires par &quot;-R&quot; afin de récupérer leur contenu récursivement)
+* copyToCommit : fonction qui copie l’ensemble des éléments renseignés dans &quot;toCommit&quot; dans le répertoire de récupération
+
+Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:icons/88x31.png|88x31]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-14 02:15:56 UTC
+ Last updated 2015-03-14 02:46:36 UTC
 
