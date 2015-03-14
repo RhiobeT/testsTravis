@@ -1,7 +1,7 @@
 = E-ICGD : Environnement d’Intégration Continue de Génération de la Documentation - Documentation de Maintenance =
 
 L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;<br />
- version 2.0, 2015-03-13
+ version 2.0, 2015-03-14
 
 [[Image:images/logo-DPT-Info.png|frame|none|alt=logo DPT Info]]
 
@@ -28,7 +28,7 @@ Dans cette documentation, nous séparerons la maintenance de chacune de ces éta
 
 Cette opération est effectuée par le script travisScripts/plantUML.sh.<br />
  La variable &quot;count&quot; va contenir le nombre de fichiers correspondant à l’extension recherchée (&quot;plantumlExtension&quot;, par défaut &quot;plantuml&quot;) présents dans le répertoire contenant les sources des diagrammes (&quot;plantumlSources&quot;, par défaut le répertoire contenant les sources de la documentation). Si il y a effectivement des fichiers à générer (&quot;count&quot; supérieur à 0), la fonction &quot;plantumlCommand&quot; est exécutée. Sinon, un message indique simplement qu’aucun fichier n’a été trouvé.<br />
- Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :
+ Les paramètres suivants sont configurables dans le fichier &quot;travisConfig/config.sh&quot; :
 
 * plantumlDir : répertoire dans lequel est situé plantUML (chemin complet contenant l’exécutable)
 * plantumlExtension : extension des fichiers sources des diagrammes à générer
@@ -36,8 +36,43 @@ Cette opération est effectuée par le script travisScripts/plantUML.sh.<br />
 * plantumlOutput : répertoire dans lequel doivent être placés les diagrammes générés
 * plantumlCommand : commande qui effectue la génération des diagrammes, à partir des 4 paramètres précédents
 
-Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. [http://creativecommons.org/licenses/by-sa/3.0/ [[Image:images/icons/88x31.png|Licence Creative Commons]]] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
+== Génération des documentations ==
+
+La fonction &quot;htmlGenerationCommand&quot;, appelée dans le fichier .travis.yml, génère la version html de la documentation. La fonction &quot;mediawikiGenerationCommand&quot; génère une autre version html, utilisée ensuite par &quot;mediawikiGenerationCommand2&quot; pour générer la version [https://www.mediawiki.org MediaWiki]. La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version [https://www.mediawiki.org MediaWiki], et ne contient pas de sommaire car le wiki [http://www.eclipse.org eclipse] le génère automatiquement.<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* sourceDir : répertoire contenant les sources de la documentation
+* iconsDir : répertoire contenant les icones utilisées dans la documentation
+* imagesDir : répertoire contenant les images utilisées dans la documentation
+* sourceName : nom du fichier source de la documentation (par défaut &quot;_source.adoc&quot;)
+* stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation
+* stylesheetName : nom de la feuille de style utilisée par la documentation
+* resultHtmlName : nom de la documentation html générée (par défaut &quot;_result.html&quot;)
+* preResultName : nom de la documentation html générée et utilisée pour la version [https://www.mediawiki.org MediaWiki] (par défaut &quot;_pre-result.html&quot;)
+* resultMediawikiName : nom de la documentation [https://www.mediawiki.org MediaWiki] générée (par défaut &quot;_result.mediawiki&quot;)
+* htmlGenerationCommand : commande qui génère la documentation au format html
+* mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation [https://www.mediawiki.org MediaWiki]
+* mediawikiGenerationCommand2 : commande qui génère la documentation au format [https://www.mediawiki.org MediaWiki]
+
+== Vérification des documentations ==
+
+Les tests de documentation sont situés dans le fichier &quot;testsdoc/Tests.java&quot; Actuellement, 4 tests sont inclus :
+
+* test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule
+* test_links() : vérifie que chaque lien soit accessible
+* test_images() : vérifie que chaque image soit accessible
+* test_css() : vérifie que la feuille de style css soit accessible
+
+Pour ajouter un nouveau test, il suffit d’ajouter au fichier une méthode statique retournant un booléen (&quot;true&quot; en cas de succès) précédée de l’annotation &quot;@Test&quot;. Vous pouvez utiliser les variables statiques &quot;mediawiki&quot; et &quot;html&quot;, donnant accès aux deux documentations.<br />
+ Le fichier &quot;config.sh&quot; contient les paramètres suivants :
+
+* testsClassName : nom de la classe contenant les tests
+* testsDir : répertoire contenant le fichier de tests
+* compilationTests : commande qui permet de compiler le fichier contenant les tests
+* lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, [https://www.mediawiki.org MediaWiki] et html. Si au moins un n’est pas indiqué, &quot;_result.mediawiki&quot; et &quot;_result.html&quot; par défaut)
+
+Document réalisé par [mailto:pierre.jeanjean@etu.univ-tlse2.fr l’équipe en charge du projet EICGD] (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via [http://asciidoctor.org/ Asciidoctor] (version <tt>1.5.2</tt>) de 'Dan Allen', lui même basé sur [http://www.methods.co.nz/asciidoc AsciiDoc]. Pour l’instant ce document est libre d’utilisation et géré par la 'Licence Creative Commons'. icon::icons/88x31.png[&quot;Licence Creative Commons&quot;,style=&quot;border-width:0&quot;,link=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;] [http://creativecommons.org/licenses/by-sa/3.0/ licence Creative Commons Paternité - Partage à l'Identique 3.0 non transposé].
 
 Version 2.0<br />
- Last updated 2015-03-13 22:56:19 UTC
+ Last updated 2015-03-14 02:15:56 UTC
 

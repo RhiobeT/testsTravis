@@ -15,7 +15,7 @@
 <div class="details">
 <span id="author" class="author">L'équipe responsable du projet &lt;pierre.jeanjean@etu.univ-tlse2.fr&gt;</span><br>
 <span id="revnumber">version 2.0,</span>
-<span id="revdate">2015-03-13</span>
+<span id="revdate">2015-03-14</span>
 </div>
 </div>
 <div id="content">
@@ -83,7 +83,7 @@ La machine virtuelle va alors effectuer les opérations suivantes :</p>
 <p>Cette opération est effectuée par le script travisScripts/plantUML.sh.<br>
 La variable "count" va contenir le nombre de fichiers correspondant à l&#8217;extension recherchée ("plantumlExtension", par défaut "plantuml") présents dans le répertoire contenant les sources des diagrammes ("plantumlSources", par défaut le répertoire contenant les sources de la documentation).
 Si il y a effectivement des fichiers à générer ("count" supérieur à 0), la fonction "plantumlCommand" est exécutée. Sinon, un message indique simplement qu&#8217;aucun fichier n&#8217;a été trouvé.<br>
-Les paramètres suivants sont configurables dans le fichier travisConfig/config.sh :</p>
+Les paramètres suivants sont configurables dans le fichier "travisConfig/config.sh" :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -104,12 +104,110 @@ Les paramètres suivants sont configurables dans le fichier travisConfig/config.
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_génération_des_documentations">Génération des documentations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La fonction "htmlGenerationCommand", appelée dans le fichier .travis.yml, génère la version html de la documentation.
+La fonction "mediawikiGenerationCommand" génère une autre version html, utilisée ensuite par "mediawikiGenerationCommand2" pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>.
+La première version html générée utilise le data-uri et possède un sommaire, alors que la seconde doit forcément garder les liens des images intacts pour générer la version <a href="https://www.mediawiki.org">MediaWiki</a>, et ne contient pas de sommaire car le wiki <a href="http://www.eclipse.org">eclipse</a> le génère automatiquement.<br>
+Le fichier "config.sh" contient les paramètres suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sourceDir : répertoire contenant les sources de la documentation</p>
+</li>
+<li>
+<p>iconsDir : répertoire contenant les icones utilisées dans la documentation</p>
+</li>
+<li>
+<p>imagesDir : répertoire contenant les images utilisées dans la documentation</p>
+</li>
+<li>
+<p>sourceName : nom du fichier source de la documentation (par défaut "_source.adoc")</p>
+</li>
+<li>
+<p>stylesheetDir : répertoire contenant la feuille de style utilisée par la documentation</p>
+</li>
+<li>
+<p>stylesheetName : nom de la feuille de style utilisée par la documentation</p>
+</li>
+<li>
+<p>resultHtmlName : nom de la documentation html générée (par défaut "_result.html")</p>
+</li>
+<li>
+<p>preResultName : nom de la documentation html générée et utilisée pour la version <a href="https://www.mediawiki.org">MediaWiki</a> (par défaut "_pre-result.html")</p>
+</li>
+<li>
+<p>resultMediawikiName : nom de la documentation <a href="https://www.mediawiki.org">MediaWiki</a> générée (par défaut "_result.mediawiki")</p>
+</li>
+<li>
+<p>htmlGenerationCommand : commande qui génère la documentation au format html</p>
+</li>
+<li>
+<p>mediawikiGenerationCommand1 : commande qui génère le fichier html servant à générer la documentation <a href="https://www.mediawiki.org">MediaWiki</a></p>
+</li>
+<li>
+<p>mediawikiGenerationCommand2 : commande qui génère la documentation au format <a href="https://www.mediawiki.org">MediaWiki</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vérification_des_documentations">Vérification des documentations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les tests de documentation sont situés dans le fichier "testsdoc/Tests.java"
+Actuellement, 4 tests sont inclus :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>test_upperCaseForTitles() : vérifie que chaque titre commence par une majuscule</p>
+</li>
+<li>
+<p>test_links() : vérifie que chaque lien soit accessible</p>
+</li>
+<li>
+<p>test_images() : vérifie que chaque image soit accessible</p>
+</li>
+<li>
+<p>test_css() : vérifie que la feuille de style css soit accessible</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour ajouter un nouveau test, il suffit d&#8217;ajouter au fichier une méthode statique retournant un booléen ("true" en cas de succès) précédée de l&#8217;annotation "@Test".
+Vous pouvez utiliser les variables statiques "mediawiki" et "html", donnant accès aux deux documentations.<br>
+Le fichier "config.sh" contient les paramètres suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>testsClassName : nom de la classe contenant les tests</p>
+</li>
+<li>
+<p>testsDir : répertoire contenant le fichier de tests</p>
+</li>
+<li>
+<p>compilationTests : commande qui permet de compiler le fichier contenant les tests</p>
+</li>
+<li>
+<p>lancementTests : commande qui exécute les tests (les 2 arguments correspondent au nom des documentations au format, respectivement, <a href="https://www.mediawiki.org">MediaWiki</a> et html. Si au moins un n&#8217;est pas indiqué, "_result.mediawiki" et "_result.html" par défaut)</p>
+</li>
+</ul>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p>Document réalisé par <a href="mailto:pierre.jeanjean@etu.univ-tlse2.fr">l&#8217;équipe en charge du projet EICGD</a> (Pierre Jeanjean - Quentin Lacoste - Florian Ouddane - Anselme Revuz) via <a href="http://asciidoctor.org/">Asciidoctor</a> (version <code>1.5.2</code>) de 'Dan Allen', lui même basé sur <a href="http://www.methods.co.nz/asciidoc">AsciiDoc</a>.
 Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 'Licence Creative Commons'.
-<span class="image"><a class="image" href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="images/icons/88x31.png" alt="Licence Creative Commons"></a></span>
+icon::icons/88x31.png["Licence Creative
+Commons",style="border-width:0",link="http://creativecommons.org/licenses/by-sa/3.0/"]
 <a href="http://creativecommons.org/licenses/by-sa/3.0/">licence Creative Commons Paternité - Partage à l&#39;Identique 3.0 non transposé</a>.</p>
 </div>
 </div>
@@ -120,7 +218,7 @@ Pour l&#8217;instant ce document est libre d&#8217;utilisation et géré par la 
 <div id="footer">
 <div id="footer-text">
 Version 2.0<br>
-Last updated 2015-03-13 22:56:19 UTC
+Last updated 2015-03-14 02:15:56 UTC
 </div>
 </div>
 </body>
